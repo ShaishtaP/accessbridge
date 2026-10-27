@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Secrets - never commit these
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Uploaded evidence (screenshots) - stored locally, not in git
+server/uploads/
+
+# Logs and test output
+*.log
+npm-debug.log*
+coverage/
+playwright-report/
+test-results/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

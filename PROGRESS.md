@@ -6,7 +6,7 @@ One task per day. Each day: do the next unchecked task, make 3–4 meaningful co
 
 ### Week 1 — Foundations
 - [x] **Task 0** — Project setup: folder, Git, GitHub repo, `.gitignore`, README, this plan
-- [ ] **Task 1** — Express server skeleton, MongoDB Atlas connection, `/api/health` route
+- [ ] **Task 1** (partial) — Express server skeleton, MongoDB Atlas connection, `/api/health` route — done: server, DB helper, health route, error handler, `npm run smoke`; left: fix the password in `MONGODB_URI` (server/.env — Atlas said "bad auth"), then `npm start` and confirm `/api/health` shows `db: connected`
 - [ ] **Task 2** — Demo site part 1: home + contact pages with seeded defects, `seeded-defects.json`
 - [ ] **Task 3** — Demo site part 2: more pages and defects, local static server script
 - [ ] **Task 4** — User model, register/login with bcrypt + JWT
@@ -34,3 +34,4 @@ One task per day. Each day: do the next unchecked task, make 3–4 meaningful co
 | Day | Date | Task | Notes |
 |---|---|---|---|
 | 0 | 2026-10-27 | Task 0 | Project setup — see `docs/daily-notes/day-00.md` |
+| 1 | 2026-10-28 | Task 1 (partial) | Server + health route work; Atlas login fails — see `docs/daily-notes/day-01.md` |

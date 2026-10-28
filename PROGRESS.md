@@ -1,6 +1,6 @@
 # Build Plan & Progress
 
-One task per day. Each day: do the next unchecked task, make 3–4 meaningful commits, push, tick it off here, and write a short note in `docs/daily-notes/`.
+Roadmap for AccessBridge, built in small, shippable increments. Each completed task has a dev log entry in `docs/daily-notes/`.
 
 ## Tasks
 

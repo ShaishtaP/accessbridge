@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- C-08: page has no title element -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong style="color:#fff">Greenleaf Café</strong>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Contact us</h1>
+    <p>Fields with a red border are required.</p>
+
+    <form action="#" method="post">
+      <!-- C-01: input with no label at all -->
+      <input type="text" name="name" class="required" data-defect="C-01">
+
+      <!-- C-02: placeholder used instead of a label -->
+      <!-- C-06: invalid autocomplete value -->
+      <input type="email" name="email" placeholder="Email" autocomplete="mail" class="required" data-defect="C-02 C-06">
+
+      <!-- C-03: select with no label -->
+      <select name="topic" data-defect="C-03">
+        <option>Table booking</option>
+        <option>Catering</option>
+        <option>Feedback</option>
+      </select>
+
+      <label for="message">Message</label>
+      <!-- C-05: required state shown only by colour (red border) -->
+      <textarea id="message" name="message" rows="4" class="required" data-defect="C-05"></textarea>
+
+      <!-- C-07: positive tabindex breaks the natural focus order -->
+      <a href="index.html" tabindex="3" data-defect="C-07">Back to home</a>
+
+      <!-- C-04: icon-only submit button with no accessible name -->
+      <button type="submit" class="icon-button" data-defect="C-04"><span aria-hidden="true">➤</span></button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2026 Greenleaf Café · 12 MG Road, Bengaluru</p>
+  </footer>
+</body>
+</html>

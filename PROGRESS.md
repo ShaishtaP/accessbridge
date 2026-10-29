@@ -7,7 +7,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 ### Week 1 — Foundations
 - [x] **Task 0** — Project setup: folder, Git, GitHub repo, `.gitignore`, README, this plan
 - [x] **Task 1** — Express server skeleton, MongoDB Atlas connection, `/api/health` route
-- [ ] **Task 2** — Demo site part 1: home + contact pages with seeded defects, `seeded-defects.json`
+- [x] **Task 2** — Demo site part 1: home + contact pages with seeded defects, `seeded-defects.json`
 - [ ] **Task 3** — Demo site part 2: more pages and defects, local static server script
 - [ ] **Task 4** — User model, register/login with bcrypt + JWT
 - [ ] **Task 5** — Auth middleware, request validation (zod), central error handling
@@ -35,3 +35,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 |---|---|---|---|
 | 0 | 2026-10-27 | Task 0 | Project setup — see `docs/daily-notes/day-00.md` |
 | 1 | 2026-10-28 | Task 1 | Express server + Atlas connection, `/api/health` returns `db: connected` — see `docs/daily-notes/day-01.md` |
+| 2 | 2026-10-29 | Task 2 | Demo site (home + contact) with 16 seeded defects and `seeded-defects.json` — see `docs/daily-notes/day-02.md` |

@@ -1,0 +1,40 @@
+/* Greenleaf Café demo site. Some rules below are intentionally inaccessible;
+   each one is tagged with its defect ID from seeded-defects.json. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1f2a1f;
+  background: #fbfaf5;
+  line-height: 1.5;
+}
+
+header, main, footer { padding: 1rem 2rem; }
+header { display: flex; align-items: center; justify-content: space-between; background: #2f5d34; }
+header a { color: #fff; text-decoration: none; margin-left: 1rem; }
+
+/* H-07: focus indicator removed for every link and button */
+a:focus, button:focus { outline: none; }
+
+/* H-02: light grey on near-white fails contrast (about 1.6:1) */
+.tagline { color: #c4c4c4; }
+
+.hero img { max-width: 100%; border-radius: 8px; }
+
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.card { background: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .1); }
+
+/* H-08: div styled to look like a button */
+.fake-button { display: inline-block; padding: .5rem 1rem; background: #2f5d34; color: #fff; border-radius: 4px; cursor: pointer; }
+
+form { display: grid; gap: .75rem; max-width: 420px; }
+input, select, textarea { padding: .5rem; font: inherit; border: 1px solid #999; border-radius: 4px; }
+
+/* C-05: required fields are marked only by a red border */
+.required { border-color: #d22; }
+
+.icon-button { width: 44px; height: 44px; background: #2f5d34; border: 0; border-radius: 50%; color: #fff; }
+
+footer { background: #eee; font-size: .9rem; }

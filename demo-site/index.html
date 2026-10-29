@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- H-03: missing lang attribute -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Greenleaf Café — Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong style="color:#fff">Greenleaf Café</strong>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="contact.html">Contact</a>
+      <!-- H-05: icon-only link with no accessible name -->
+      <a href="https://example.com/greenleaf" data-defect="H-05"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="10"/></svg></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Fresh food, slow mornings</h1>
+      <p class="tagline" data-defect="H-02">Locally sourced breakfast and coffee since 2012.</p>
+      <!-- H-01: informative image without alt text -->
+      <img src="images/hero.svg" data-defect="H-01">
+    </section>
+
+    <section>
+      <!-- H-04: heading level jumps from h1 to h4 -->
+      <h4 data-defect="H-04">Today's menu</h4>
+      <div class="menu-grid">
+        <div class="card"><strong>Avocado toast</strong><p>Sourdough, lime, chilli flakes.</p></div>
+        <div class="card"><strong>Masala omelette</strong><p>Three eggs, onion, coriander.</p></div>
+        <div class="card"><strong>Cold brew</strong><p>Steeped for 18 hours.</p></div>
+      </div>
+      <!-- H-06: link text gives no context -->
+      <p>For the full menu, <a href="contact.html" data-defect="H-06">click here</a>.</p>
+    </section>
+
+    <section>
+      <h2>Book a table</h2>
+      <!-- H-08: clickable div, not reachable or operable by keyboard -->
+      <div class="fake-button" onclick="location.href='contact.html'" data-defect="H-08">Reserve now</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Greenleaf Café · 12 MG Road, Bengaluru</p>
+  </footer>
+</body>
+</html>

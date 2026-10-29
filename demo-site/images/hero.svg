@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300">
+  <rect width="900" height="300" fill="#2f5d34"/>
+  <circle cx="160" cy="150" r="90" fill="#4f8a55"/>
+  <path d="M160 85c-35 25-45 75 0 130 45-55 35-105 0-130z" fill="#cfe8c4"/>
+  <text x="300" y="165" font-family="Georgia, serif" font-size="52" fill="#fbfaf5">Greenleaf Café</text>
+</svg>

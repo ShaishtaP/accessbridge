@@ -1,0 +1,22 @@
+{
+  "site": "Greenleaf Café demo",
+  "description": "Ground truth for audit recall. Every defect was introduced on purpose. 'axeRule' is the axe-core rule expected to catch it; null means it needs manual testing.",
+  "defects": [
+    { "id": "H-01", "page": "index.html", "selector": "[data-defect~=\"H-01\"]", "wcag": "1.1.1", "severity": "critical", "axeRule": "image-alt", "summary": "Informative hero image has no alt text" },
+    { "id": "H-02", "page": "index.html", "selector": "[data-defect~=\"H-02\"]", "wcag": "1.4.3", "severity": "serious", "axeRule": "color-contrast", "summary": "Tagline text contrast is about 1.6:1" },
+    { "id": "H-03", "page": "index.html", "selector": "html", "wcag": "3.1.1", "severity": "serious", "axeRule": "html-has-lang", "summary": "Page language is not declared" },
+    { "id": "H-04", "page": "index.html", "selector": "[data-defect~=\"H-04\"]", "wcag": "1.3.1", "severity": "moderate", "axeRule": "heading-order", "summary": "Heading level jumps from h1 to h4" },
+    { "id": "H-05", "page": "index.html", "selector": "[data-defect~=\"H-05\"]", "wcag": "2.4.4", "severity": "serious", "axeRule": "link-name", "summary": "Icon-only link has no accessible name" },
+    { "id": "H-06", "page": "index.html", "selector": "[data-defect~=\"H-06\"]", "wcag": "2.4.4", "severity": "moderate", "axeRule": null, "summary": "Link text 'click here' has no context" },
+    { "id": "H-07", "page": "index.html", "selector": "a, button", "wcag": "2.4.7", "severity": "serious", "axeRule": null, "summary": "Focus outline removed from links and buttons" },
+    { "id": "H-08", "page": "index.html", "selector": "[data-defect~=\"H-08\"]", "wcag": "2.1.1", "severity": "critical", "axeRule": null, "summary": "Clickable div cannot be reached or used with a keyboard" },
+    { "id": "C-01", "page": "contact.html", "selector": "[data-defect~=\"C-01\"]", "wcag": "4.1.2", "severity": "critical", "axeRule": "label", "summary": "Name input has no label" },
+    { "id": "C-02", "page": "contact.html", "selector": "[data-defect~=\"C-02\"]", "wcag": "3.3.2", "severity": "moderate", "axeRule": null, "summary": "Placeholder used instead of a visible label" },
+    { "id": "C-03", "page": "contact.html", "selector": "[data-defect~=\"C-03\"]", "wcag": "4.1.2", "severity": "critical", "axeRule": "select-name", "summary": "Topic select has no label" },
+    { "id": "C-04", "page": "contact.html", "selector": "[data-defect~=\"C-04\"]", "wcag": "4.1.2", "severity": "critical", "axeRule": "button-name", "summary": "Icon-only submit button has no accessible name" },
+    { "id": "C-05", "page": "contact.html", "selector": "[data-defect~=\"C-05\"]", "wcag": "1.4.1", "severity": "serious", "axeRule": null, "summary": "Required fields indicated by colour only" },
+    { "id": "C-06", "page": "contact.html", "selector": "[data-defect~=\"C-06\"]", "wcag": "1.3.5", "severity": "serious", "axeRule": "autocomplete-valid", "summary": "Email field uses an invalid autocomplete value" },
+    { "id": "C-07", "page": "contact.html", "selector": "[data-defect~=\"C-07\"]", "wcag": "2.4.3", "severity": "moderate", "axeRule": "tabindex", "summary": "Positive tabindex breaks the focus order" },
+    { "id": "C-08", "page": "contact.html", "selector": "head", "wcag": "2.4.2", "severity": "serious", "axeRule": "document-title", "summary": "Page has no title" }
+  ]
+}

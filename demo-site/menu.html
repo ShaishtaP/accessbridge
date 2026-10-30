@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- M-05: zoom disabled for mobile users -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" data-defect="M-05">
+  <title>Greenleaf Café — Menu</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong style="color:#fff">Greenleaf Café</strong>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Our menu</h1>
+
+    <h2>Breakfast prices</h2>
+    <table>
+      <tr>
+        <!-- M-01: empty table header -->
+        <th data-defect="M-01"></th>
+        <th>Small</th>
+        <th>Large</th>
+      </tr>
+      <tr><td>Avocado toast</td><td>₹220</td><td>₹320</td></tr>
+      <tr><td>Masala omelette</td><td>₹180</td><td>₹260</td></tr>
+      <tr><td>Cold brew</td><td>₹150</td><td>₹210</td></tr>
+    </table>
+
+    <h2>Chef's specials</h2>
+    <!-- M-03: list contains a div instead of li elements -->
+    <ul data-defect="M-03">
+      <div>Mango lassi pancakes</div>
+      <div>Filter coffee tiramisu</div>
+    </ul>
+
+    <!-- M-02: image of text with an alt that says nothing useful -->
+    <img src="images/hero.svg" alt="image" width="300" data-defect="M-02">
+
+    <!-- M-04: hidden from screen readers but still focusable -->
+    <div aria-hidden="true">
+      <a href="contact.html" data-defect="M-04">Order catering</a>
+    </div>
+
+    <!-- M-06: misspelled ARIA role -->
+    <span role="buton" tabindex="0" class="fake-button" data-defect="M-06">Download PDF menu</span>
+  </main>
+
+  <footer>
+    <p>© 2026 Greenleaf Café · 12 MG Road, Bengaluru</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- A-04: page reloads itself on a timer -->
+  <meta http-equiv="refresh" content="600" data-defect="A-04">
+  <title>Greenleaf Café — About</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <strong style="color:#fff">Greenleaf Café</strong>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>About us</h1>
+
+    <!-- A-03: moving text that cannot be paused -->
+    <marquee data-defect="A-03">Now open on Sundays from 8 am!</marquee>
+
+    <!-- A-02: aria-labelledby points to an id that does not exist -->
+    <section aria-labelledby="story-heading-missing" data-defect="A-02">
+      <h2>Our story</h2>
+      <p>Greenleaf started as a two-table coffee counter in 2012 and grew into a neighbourhood favourite.</p>
+    </section>
+
+    <h2>Find us</h2>
+    <!-- A-01: embedded map frame without a title -->
+    <iframe srcdoc="<p>Map: 12 MG Road, Bengaluru</p>" width="300" height="120" data-defect="A-01"></iframe>
+
+    <!-- A-05: instructions rely on colour and position only -->
+    <p data-defect="A-05">To join our newsletter, press the green button on the right.</p>
+    <button type="button" style="float:right">Join</button>
+  </main>
+
+  <footer>
+    <p>© 2026 Greenleaf Café · 12 MG Road, Bengaluru</p>
+  </footer>
+</body>
+</html>

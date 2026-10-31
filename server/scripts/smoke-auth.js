@@ -29,6 +29,12 @@ async function post(path, body) {
   return { status: res.status, body: await res.json() };
 }
 
+async function getMe(token) {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const res = await fetch(`${base}/me`, { headers });
+  return { status: res.status, body: await res.json() };
+}
+
 try {
   const reg = await post('/register', { name: 'Smoke Test', email, password });
   check('register returns 201 with token', reg.status === 201 && typeof reg.body.token === 'string');
@@ -45,6 +51,23 @@ try {
 
   const bad = await post('/login', { email, password: 'wrong-password' });
   check('wrong password returns 401', bad.status === 401);
+
+  const invalid = await post('/register', { name: 'Smoke Test', email: 'not-an-email', password });
+  check('invalid email returns 400 with field details',
+    invalid.status === 400 && invalid.body.details?.some((d) => d.field === 'email'));
+
+  const malformed = await fetch(`${base}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"email": ',
+  });
+  check('malformed JSON returns 400', malformed.status === 400);
+
+  const meOk = await getMe(ok.body.token);
+  check('GET /me with token returns the user', meOk.status === 200 && meOk.body.user?.email === email);
+
+  check('GET /me without token returns 401', (await getMe()).status === 401);
+  check('GET /me with a fake token returns 401', (await getMe('not.a.real.token')).status === 401);
 } finally {
   await User.deleteOne({ email });
   server.close();

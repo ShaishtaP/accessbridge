@@ -1,25 +1,10 @@
 import User from '../models/User.js';
 import { signToken } from '../utils/token.js';
+import { httpError } from '../utils/httpError.js';
 
-// Small helper so validation failures reach the central error handler as 4xx.
-function httpError(status, message) {
-  const err = new Error(message);
-  err.status = status;
-  return err;
-}
-
-function readCredentials(body = {}) {
-  const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
-  const password = typeof body.password === 'string' ? body.password : '';
-  return { email, password };
-}
-
+// req.body is already validated and cleaned by the zod schemas in routes/auth.js.
 export async function register(req, res) {
-  const { email, password } = readCredentials(req.body);
-  const name = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
-
-  if (!name || !email || !password) throw httpError(400, 'Name, email and password are required');
-  if (password.length < 8) throw httpError(400, 'Password must be at least 8 characters');
+  const { name, email, password } = req.body;
 
   if (await User.exists({ email })) throw httpError(409, 'Email is already registered');
 
@@ -30,8 +15,7 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-  const { email, password } = readCredentials(req.body);
-  if (!email || !password) throw httpError(400, 'Email and password are required');
+  const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select('+passwordHash');
   // Same message for unknown email and wrong password, so accounts can't be probed.
@@ -40,4 +24,9 @@ export async function login(req, res) {
   }
 
   res.json({ user: user.toPublic(), token: signToken(user._id) });
+}
+
+// Returns the logged-in user (set by requireAuth).
+export function me(req, res) {
+  res.json({ user: req.user.toPublic() });
 }

@@ -11,7 +11,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [x] **Task 3** — Demo site part 2: more pages and defects, local static server script
 - [x] **Task 4** — User model, register/login with bcrypt + JWT
 - [x] **Task 5** — Auth middleware, request validation (zod), central error handling
-- [ ] **Task 6** — Workspaces: create, list, members and roles
+- [x] **Task 6** — Workspaces: create, list, members and roles
 
 ### Week 2 — Core features
 - [ ] **Task 7** — Routes (pages to audit) with allowlist validation
@@ -39,3 +39,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 3 | 2026-10-30 | Task 3 | Menu + About pages (27 seeded defects total) and a zero-dependency static server — see `docs/daily-notes/day-03.md` |
 | 4 | 2026-10-31 | Task 4 | User model with bcrypt hashing, `/api/auth/register` + `/api/auth/login` issuing JWTs, auth smoke check — see `docs/daily-notes/day-04.md` |
 | 5 | 2026-10-31 | Task 5 | zod request validation, `requireAuth` + `GET /api/auth/me`, central handling for JSON/cast/duplicate errors — see `docs/daily-notes/day-05.md` |
+| 6 | 2026-11-01 | Task 6 | Workspace model with owner/admin/member roles, `/api/workspaces` create/list/get and member add/role/remove routes, 15 workspace smoke checks — see `docs/daily-notes/day-06.md` |

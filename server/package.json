@@ -9,7 +9,8 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "smoke": "node scripts/smoke-health.js",
-    "smoke:auth": "node scripts/smoke-auth.js"
+    "smoke:auth": "node scripts/smoke-auth.js",
+    "smoke:workspaces": "node scripts/smoke-workspaces.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

@@ -14,7 +14,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [x] **Task 6** — Workspaces: create, list, members and roles
 
 ### Week 2 — Core features
-- [ ] **Task 7** — Routes (pages to audit) with allowlist validation
+- [x] **Task 7** — Routes (pages to audit) with allowlist validation
 - [ ] **Task 8** — Issues: create/update/list, severity, WCAG rule, status, filters
 - [ ] **Task 9** — Evidence: screenshot uploads (multer) and keyboard-navigation notes
 - [ ] **Task 10** — Activity timeline: record every change as an ActivityEvent
@@ -40,3 +40,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 4 | 2026-10-31 | Task 4 | User model with bcrypt hashing, `/api/auth/register` + `/api/auth/login` issuing JWTs, auth smoke check — see `docs/daily-notes/day-04.md` |
 | 5 | 2026-10-31 | Task 5 | zod request validation, `requireAuth` + `GET /api/auth/me`, central handling for JSON/cast/duplicate errors — see `docs/daily-notes/day-05.md` |
 | 6 | 2026-11-01 | Task 6 | Workspace model with owner/admin/member roles, `/api/workspaces` create/list/get and member add/role/remove routes, 15 workspace smoke checks — see `docs/daily-notes/day-06.md` |
+| 7 | 2026-11-02 | Task 7 | Page model, `/api/workspaces/:id/pages` list/add/delete with audit URL allowlist (SSRF-safe), 14 page smoke checks — see `docs/daily-notes/day-07.md` |

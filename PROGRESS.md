@@ -21,13 +21,15 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [ ] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
 - [ ] **Task 12** — Worker runs Playwright + axe-core, saves AuditRuns, creates issues
 - [ ] **Task 13** — Fix-verification workflow: Fixed → retest → Verified / Reopened, original evidence preserved
+- [ ] **Task 14** — Per-workspace site list: owners register their own deployed sites (e.g. `https://myapp.vercel.app`) alongside the local demo; ownership verification via a meta tag or `/.well-known/accessbridge.txt` token before a site can be audited
+- [ ] **Task 15** — SSRF guard for public sites: resolve DNS and block private/loopback/link-local IPs (localhost only via the dev allowlist), re-check every redirect, page timeouts; audit a real deployed site end to end
 
 ### Week 3 — Dashboard & results
-- [ ] **Task 14** — React app setup (Vite, Tailwind, router) and login/register pages
-- [ ] **Task 15** — Dashboard: workspaces, routes, issue list with filters
-- [ ] **Task 16** — Issue detail page: evidence, timeline, verification actions
-- [ ] **Task 17** — Metrics: recall vs seeded defects, verified fixes, audit time, API p95 latency
-- [ ] **Task 18** — Final README: screenshots, architecture, results, how to run
+- [ ] **Task 16** — React app setup (Vite, Tailwind, router) and login/register pages
+- [ ] **Task 17** — Dashboard: workspaces, routes, issue list with filters
+- [ ] **Task 18** — Issue detail page: evidence, timeline, verification actions
+- [ ] **Task 19** — Metrics: recall vs seeded defects, verified fixes, audit time, API p95 latency
+- [ ] **Task 20** — Final README: screenshots, architecture, results, how to run
 
 ## Daily log
 

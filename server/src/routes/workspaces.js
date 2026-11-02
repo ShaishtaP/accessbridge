@@ -14,6 +14,7 @@ import {
   addMemberSchema,
   updateMemberSchema,
 } from '../schemas/workspaceSchemas.js';
+import pagesRouter from './pages.js';
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.get('/:id', getWorkspace);
 router.post('/:id/members', validate(addMemberSchema), addMember);
 router.patch('/:id/members/:userId', validate(updateMemberSchema), updateMember);
 router.delete('/:id/members/:userId', removeMember);
+router.use('/:id/pages', pagesRouter);
 
 export default router;

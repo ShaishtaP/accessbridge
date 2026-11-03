@@ -11,7 +11,8 @@
     "smoke": "node scripts/smoke-health.js",
     "smoke:auth": "node scripts/smoke-auth.js",
     "smoke:workspaces": "node scripts/smoke-workspaces.js",
-    "smoke:pages": "node scripts/smoke-pages.js"
+    "smoke:pages": "node scripts/smoke-pages.js",
+    "smoke:issues": "node scripts/smoke-issues.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

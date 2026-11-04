@@ -16,7 +16,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 ### Week 2 — Core features
 - [x] **Task 7** — Routes (pages to audit) with allowlist validation
 - [x] **Task 8** — Issues: create/update/list, severity, WCAG rule, status, filters
-- [ ] **Task 9** — Evidence: screenshot uploads (multer) and keyboard-navigation notes
+- [x] **Task 9** — Evidence: screenshot uploads (multer) and keyboard-navigation notes
 - [ ] **Task 10** — Activity timeline: record every change as an ActivityEvent
 - [ ] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
 - [ ] **Task 12** — Worker runs Playwright + axe-core, saves AuditRuns, creates issues
@@ -44,3 +44,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 6 | 2026-11-01 | Task 6 | Workspace model with owner/admin/member roles, `/api/workspaces` create/list/get and member add/role/remove routes, 15 workspace smoke checks — see `docs/daily-notes/day-06.md` |
 | 7 | 2026-11-02 | Task 7 | Page model, `/api/workspaces/:id/pages` list/add/delete with audit URL allowlist (SSRF-safe), 14 page smoke checks — see `docs/daily-notes/day-07.md` |
 | 8 | 2026-11-03 | Task 8 | Issue model (severity, WCAG criterion, status), `/api/workspaces/:id/issues` create/list/get/update with status, severity, page and WCAG filters, 15 issue smoke checks — see `docs/daily-notes/day-08.md` |
+| 9 | 2026-11-04 | Task 9 | Append-only evidence: keyboard notes and screenshot uploads (multer, 5 MB, magic-byte check, member-only downloads), 12 evidence smoke checks — see `docs/daily-notes/day-09.md` |

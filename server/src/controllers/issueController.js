@@ -42,7 +42,7 @@ export async function createIssue(req, res) {
   res.status(201).json({ issue: issue.toPublic() });
 }
 
-async function findIssue(workspace, issueId) {
+export async function findIssue(workspace, issueId) {
   // Scoped to the workspace so an issue id from another workspace isn't reachable here.
   const issue = await Issue.findOne({ _id: issueId, workspace: workspace._id });
   if (!issue) throw httpError(404, 'Issue not found');

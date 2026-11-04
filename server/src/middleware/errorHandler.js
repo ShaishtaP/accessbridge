@@ -7,6 +7,12 @@ export function notFound(req, res) {
 function normalize(err) {
   // Body that is not valid JSON (thrown by express.json()).
   if (err.type === 'entity.parse.failed') return { status: 400, message: 'Request body must be valid JSON' };
+  // Upload limits enforced by multer (file too large, unexpected field, too many files).
+  if (err.name === 'MulterError') {
+    return err.code === 'LIMIT_FILE_SIZE'
+      ? { status: 413, message: 'File is too large (max 5 MB)' }
+      : { status: 400, message: err.message };
+  }
   // Malformed MongoDB ObjectId in a URL, e.g. /api/things/123.
   if (err.name === 'CastError') return { status: 400, message: `Invalid ${err.path}` };
   // Unique index violation, e.g. two requests registering the same email at once.

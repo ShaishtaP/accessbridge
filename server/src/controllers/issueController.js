@@ -3,6 +3,7 @@ import Page from '../models/Page.js';
 import { issueFilterSchema } from '../schemas/issueSchemas.js';
 import { httpError } from '../utils/httpError.js';
 import { loadForMember } from '../utils/workspaceAccess.js';
+import { recordActivity, diffIssue } from '../utils/activity.js';
 
 // Any member can list issues, optionally filtered by status, severity, page or WCAG criterion.
 export async function listIssues(req, res) {
@@ -39,6 +40,7 @@ export async function createIssue(req, res) {
     page: pageId,
     createdBy: req.user._id,
   });
+  await recordActivity({ workspace: workspace._id, issue: issue._id, actor: req.user._id, action: 'issue.created' });
   res.status(201).json({ issue: issue.toPublic() });
 }
 
@@ -58,7 +60,13 @@ export async function getIssue(req, res) {
 export async function updateIssue(req, res) {
   const { workspace } = await loadForMember(req);
   const issue = await findIssue(workspace, req.params.issueId);
+  const before = issue.toPublic();
   issue.set(req.body);
   await issue.save();
+
+  const changes = diffIssue(before, issue.toPublic());
+  if (changes.length > 0) {
+    await recordActivity({ workspace: workspace._id, issue: issue._id, actor: req.user._id, action: 'issue.updated', changes });
+  }
   res.json({ issue: issue.toPublic() });
 }

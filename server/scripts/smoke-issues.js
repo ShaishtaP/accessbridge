@@ -7,6 +7,7 @@ import User from '../src/models/User.js';
 import Workspace from '../src/models/Workspace.js';
 import Page from '../src/models/Page.js';
 import Issue from '../src/models/Issue.js';
+import ActivityEvent from '../src/models/ActivityEvent.js';
 
 dotenv.config({ path: fileURLToPath(new URL('../.env', import.meta.url)), quiet: true });
 // Use the default allowlist (local demo site) regardless of local settings.
@@ -88,6 +89,7 @@ try {
   const users = await User.find({ email: { $in: emails } });
   const workspaces = await Workspace.find({ owner: { $in: users.map((u) => u._id) } });
   const workspaceIds = workspaces.map((w) => w._id);
+  await ActivityEvent.deleteMany({ workspace: { $in: workspaceIds } });
   await Issue.deleteMany({ workspace: { $in: workspaceIds } });
   await Page.deleteMany({ workspace: { $in: workspaceIds } });
   await Workspace.deleteMany({ _id: { $in: workspaceIds } });

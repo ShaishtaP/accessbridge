@@ -11,6 +11,7 @@ import User from '../src/models/User.js';
 import Workspace from '../src/models/Workspace.js';
 import Page from '../src/models/Page.js';
 import Issue from '../src/models/Issue.js';
+import ActivityEvent from '../src/models/ActivityEvent.js';
 import Evidence from '../src/models/Evidence.js';
 
 dotenv.config({ path: fileURLToPath(new URL('../.env', import.meta.url)), quiet: true });
@@ -100,6 +101,7 @@ try {
   const workspaces = await Workspace.find({ owner: { $in: users.map((u) => u._id) } });
   const ids = workspaces.map((w) => w._id);
   await Evidence.deleteMany({ workspace: { $in: ids } });
+  await ActivityEvent.deleteMany({ workspace: { $in: ids } });
   await Issue.deleteMany({ workspace: { $in: ids } });
   await Page.deleteMany({ workspace: { $in: ids } });
   await Workspace.deleteMany({ _id: { $in: ids } });

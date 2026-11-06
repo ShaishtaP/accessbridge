@@ -18,7 +18,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [x] **Task 8** — Issues: create/update/list, severity, WCAG rule, status, filters
 - [x] **Task 9** — Evidence: screenshot uploads (multer) and keyboard-navigation notes
 - [x] **Task 10** — Activity timeline: record every change as an ActivityEvent
-- [ ] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
+- [x] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
 - [ ] **Task 12** — Worker runs Playwright + axe-core, saves AuditRuns, creates issues
 - [ ] **Task 13** — Fix-verification workflow: Fixed → retest → Verified / Reopened, original evidence preserved
 - [ ] **Task 14** — Per-workspace site list: owners register their own deployed sites (e.g. `https://myapp.vercel.app`) alongside the local demo; ownership verification via a meta tag or `/.well-known/accessbridge.txt` token before a site can be audited
@@ -46,3 +46,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 8 | 2026-11-03 | Task 8 | Issue model (severity, WCAG criterion, status), `/api/workspaces/:id/issues` create/list/get/update with status, severity, page and WCAG filters, 15 issue smoke checks — see `docs/daily-notes/day-08.md` |
 | 9 | 2026-11-04 | Task 9 | Append-only evidence: keyboard notes and screenshot uploads (multer, 5 MB, magic-byte check, member-only downloads), 12 evidence smoke checks — see `docs/daily-notes/day-09.md` |
 | 10 | 2026-11-05 | Task 10 | ActivityEvent timeline: issue creation, field-level updates and evidence recorded automatically, issue timeline + workspace feed routes, 9 activity smoke checks — see `docs/daily-notes/day-10.md` |
+| 11 | 2026-11-06 | Task 11 | AuditJob collection as the job queue, `/api/workspaces/:id/audits` queue/list/get routes, worker skeleton with atomic job claiming, lock expiry and retries, 11 audit smoke checks — see `docs/daily-notes/day-11.md` |

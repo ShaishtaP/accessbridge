@@ -14,7 +14,8 @@
     "smoke:pages": "node scripts/smoke-pages.js",
     "smoke:issues": "node scripts/smoke-issues.js",
     "smoke:evidence": "node scripts/smoke-evidence.js",
-    "smoke:activity": "node scripts/smoke-activity.js"
+    "smoke:activity": "node scripts/smoke-activity.js",
+    "smoke:audits": "node scripts/smoke-audits.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

@@ -7,8 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "once": "node src/index.js --once",
-    "smoke": "node scripts/smoke-queue.js"
+    "once": "node src/index.js --once"
   },
   "dependencies": {
     "dotenv": "^18.0.9",

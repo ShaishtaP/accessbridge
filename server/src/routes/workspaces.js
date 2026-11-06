@@ -16,6 +16,7 @@ import {
 } from '../schemas/workspaceSchemas.js';
 import pagesRouter from './pages.js';
 import issuesRouter from './issues.js';
+import auditsRouter from './audits.js';
 import { workspaceActivity } from '../controllers/activityController.js';
 
 const router = Router();
@@ -31,6 +32,7 @@ router.patch('/:id/members/:userId', validate(updateMemberSchema), updateMember)
 router.delete('/:id/members/:userId', removeMember);
 router.use('/:id/pages', pagesRouter);
 router.use('/:id/issues', issuesRouter);
+router.use('/:id/audits', auditsRouter);
 router.get('/:id/activity', workspaceActivity);
 
 export default router;

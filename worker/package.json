@@ -1,0 +1,17 @@
+{
+  "name": "accessbridge-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AccessBridge audit worker: claims queued audit jobs from MongoDB and runs them",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "once": "node src/index.js --once",
+    "smoke": "node scripts/smoke-queue.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "mongoose": "^9.12.0"
+  }
+}

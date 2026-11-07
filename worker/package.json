@@ -10,7 +10,9 @@
     "once": "node src/index.js --once"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "dotenv": "^18.0.9",
-    "mongoose": "^9.12.0"
+    "mongoose": "^9.12.0",
+    "playwright": "^1.65.0"
   }
 }

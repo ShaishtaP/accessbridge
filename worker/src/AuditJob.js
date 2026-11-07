@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 // worker reads or writes are declared; strict: false keeps the rest untouched.
 const auditJobSchema = new mongoose.Schema(
   {
+    workspace: mongoose.Schema.Types.ObjectId,
+    page: mongoose.Schema.Types.ObjectId,
+    requestedBy: mongoose.Schema.Types.ObjectId,
     url: String,
     status: String,
     attempts: Number,

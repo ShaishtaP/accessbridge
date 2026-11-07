@@ -3,6 +3,7 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
 import { processNextJob } from './worker.js';
+import { closeBrowser } from './scanner.js';
 
 // The worker shares the API's database settings in server/.env.
 dotenv.config({ path: fileURLToPath(new URL('../../server/.env', import.meta.url)), quiet: true });
@@ -26,6 +27,7 @@ async function main() {
       await sleep(POLL_MS);
     }
   }
+  await closeBrowser();
   await mongoose.disconnect();
   console.log(`[${workerId}] stopped`);
 }

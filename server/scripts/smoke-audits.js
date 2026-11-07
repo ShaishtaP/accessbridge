@@ -1,7 +1,8 @@
 // Checks the audit job queue end to end against the real database: queue a job through the API,
-// run the worker once, confirm the job finished, then remove the test data.
+// run the worker once against the local demo site, confirm the job finished, then remove the test data.
 import dotenv from 'dotenv';
-import { execFileSync } from 'node:child_process';
+import mongoose from 'mongoose';
+import { execFileSync, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { createApp } from '../src/app.js';
 import { connectDB, disconnectDB } from '../src/config/db.js';
@@ -9,6 +10,8 @@ import User from '../src/models/User.js';
 import Workspace from '../src/models/Workspace.js';
 import Page from '../src/models/Page.js';
 import AuditJob from '../src/models/AuditJob.js';
+import Issue from '../src/models/Issue.js';
+import ActivityEvent from '../src/models/ActivityEvent.js';
 
 dotenv.config({ path: fileURLToPath(new URL('../.env', import.meta.url)), quiet: true });
 delete process.env.AUDIT_ALLOWLIST;
@@ -23,6 +26,10 @@ function check(label, ok) {
   console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}`);
   if (!ok) failed = true;
 }
+
+// The worker really opens the page, so the demo site must be running.
+const demo = spawn(process.execPath, [fileURLToPath(new URL('../../demo-site/server.js', import.meta.url))]);
+await new Promise((resolve) => demo.stdout.once('data', resolve));
 
 await connectDB(process.env.MONGODB_URI);
 const server = createApp().listen(0);
@@ -56,11 +63,16 @@ try {
   check('list shows the queued job', list.status === 200 && list.body.jobs?.[0]?.id === queued.body.job.id);
 
   // Run the worker until the queue is empty, exactly as `npm run once` does in worker/.
-  execFileSync(process.execPath, [workerEntry, '--once'], { stdio: 'ignore', timeout: 60000 });
+  execFileSync(process.execPath, [workerEntry, '--once'], { stdio: 'ignore', timeout: 120000 });
 
   const done = (await call('GET', `${audits}/${queued.body.job.id}`, owner.token)).body.job;
   check('worker marks the job done', done?.status === 'done');
-  check('job records one attempt and a result', done?.attempts === 1 && done?.result?.url === page.url);
+  check('job records one attempt and an audit result',
+    done?.attempts === 1 && done?.result?.auditRunId && done.result.violationCount > 0);
+
+  const found = await call('GET', `/workspaces/${ws.id}/issues?pageId=${page.id}`, owner.token);
+  check('audit findings are listed as issues through the API',
+    found.status === 200 && found.body.issues?.length === done?.result?.issuesCreated);
   check('a new audit can be queued once the last one finished',
     (await call('POST', audits, owner.token, { pageId: page.id })).status === 201);
   check('status filter returns only queued jobs',
@@ -70,10 +82,14 @@ try {
   const workspaces = await Workspace.find({ owner: { $in: users.map((u) => u._id) } });
   const wsIds = workspaces.map((w) => w._id);
   await AuditJob.deleteMany({ workspace: { $in: wsIds } });
+  await Issue.deleteMany({ workspace: { $in: wsIds } });
+  await ActivityEvent.deleteMany({ workspace: { $in: wsIds } });
+  await mongoose.connection.collection('auditruns').deleteMany({ workspace: { $in: wsIds } });
   await Page.deleteMany({ workspace: { $in: wsIds } });
   await Workspace.deleteMany({ _id: { $in: wsIds } });
   await User.deleteMany({ email: { $in: emails } });
   server.close();
+  demo.kill();
   await disconnectDB();
 }
 

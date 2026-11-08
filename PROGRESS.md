@@ -20,7 +20,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [x] **Task 10** — Activity timeline: record every change as an ActivityEvent
 - [x] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
 - [x] **Task 12** — Worker runs Playwright + axe-core, saves AuditRuns, creates issues
-- [ ] **Task 13** — Fix-verification workflow: Fixed → retest → Verified / Reopened, original evidence preserved
+- [x] **Task 13** — Fix-verification workflow: Fixed → retest → Verified / Reopened, original evidence preserved
 - [ ] **Task 14** — Per-workspace site list: owners register their own deployed sites (e.g. `https://myapp.vercel.app`) alongside the local demo; ownership verification via a meta tag or `/.well-known/accessbridge.txt` token before a site can be audited
 - [ ] **Task 15** — SSRF guard for public sites: resolve DNS and block private/loopback/link-local IPs (localhost only via the dev allowlist), re-check every redirect, page timeouts; audit a real deployed site end to end
 
@@ -48,3 +48,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 10 | 2026-11-05 | Task 10 | ActivityEvent timeline: issue creation, field-level updates and evidence recorded automatically, issue timeline + workspace feed routes, 9 activity smoke checks — see `docs/daily-notes/day-10.md` |
 | 11 | 2026-11-06 | Task 11 | AuditJob collection as the job queue, `/api/workspaces/:id/audits` queue/list/get routes, worker skeleton with atomic job claiming, lock expiry and retries, 11 audit smoke checks — see `docs/daily-notes/day-11.md` |
 | 12 | 2026-11-07 | Task 12 | Worker runs Playwright + axe-core 4.14 (allowlist enforced in worker and per request), AuditRuns stored, deduplicated issues created; recall 19/20 automatable seeded defects (95%) — see `docs/daily-notes/day-12.md` |
+| 13 | 2026-11-08 | Task 13 | Fix verification: `POST /issues/:issueId/retest` queues a retest job for a fixed issue, the worker re-scans the page and sets it to verified or reopened on the same issue (evidence and timeline kept), 13 retest smoke checks — see `docs/daily-notes/day-13.md` |

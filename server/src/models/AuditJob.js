@@ -12,6 +12,9 @@ const auditJobSchema = new mongoose.Schema(
     url: { type: String, required: true },
     status: { type: String, enum: JOB_STATUSES, default: 'queued' },
     requestedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    // Set when the job is a fix retest: the worker re-scans the page and decides
+    // whether this issue is verified or reopened.
+    retestIssue: { type: mongoose.Schema.Types.ObjectId, ref: 'Issue', default: null },
     attempts: { type: Number, default: 0 },
     workerId: { type: String, default: null },
     // A running job whose lock has expired is treated as abandoned and can be claimed again.
@@ -38,6 +41,7 @@ auditJobSchema.methods.toPublic = function () {
     status: this.status,
     attempts: this.attempts,
     requestedBy: this.requestedBy.toString(),
+    retestIssueId: this.retestIssue ? this.retestIssue.toString() : null,
     startedAt: this.startedAt,
     finishedAt: this.finishedAt,
     error: this.error,

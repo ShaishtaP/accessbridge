@@ -4,6 +4,7 @@ import { validate } from '../middleware/validate.js';
 import { createIssueSchema, updateIssueSchema } from '../schemas/issueSchemas.js';
 import evidenceRouter from './evidence.js';
 import { issueActivity } from '../controllers/activityController.js';
+import { requestRetest } from '../controllers/retestController.js';
 
 // Mounted at /api/workspaces/:id/issues; mergeParams exposes the workspace :id here.
 const router = Router({ mergeParams: true });
@@ -13,6 +14,7 @@ router.post('/', validate(createIssueSchema), createIssue);
 router.get('/:issueId', getIssue);
 router.patch('/:issueId', validate(updateIssueSchema), updateIssue);
 router.get('/:issueId/activity', issueActivity);
+router.post('/:issueId/retest', requestRetest);
 router.use('/:issueId/evidence', evidenceRouter);
 
 export default router;

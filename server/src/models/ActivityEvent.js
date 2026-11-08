@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const ACTIVITY_ACTIONS = ['issue.created', 'issue.updated', 'evidence.added'];
+export const ACTIVITY_ACTIONS = ['issue.created', 'issue.updated', 'evidence.added', 'issue.retest_requested', 'issue.retested'];
 
 // One entry in an issue's timeline. Events are written by the server only and never edited,
 // so the timeline is a trustworthy record of who changed what and when.

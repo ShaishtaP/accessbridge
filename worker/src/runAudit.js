@@ -1,5 +1,6 @@
 import { scanPage } from './scanner.js';
 import { AuditRun, Issue, ActivityEvent } from './models.js';
+import { applyRetest } from './retest.js';
 
 // Issues in these states are finished; a new finding at the same spot opens a fresh issue.
 const CLOSED_STATUSES = ['verified', 'wont_fix'];
@@ -62,6 +63,8 @@ export async function runAudit(job) {
       (created ? run.issuesCreated : run.issuesExisting).push(id);
     }
   }
+  // A retest job also judges the issue it was queued for, using this run's findings.
+  if (job.retestIssue) run.retest = await applyRetest(job, run._id, scan.violations);
   await run.save();
 
   return {
@@ -73,5 +76,6 @@ export async function runAudit(job) {
     issuesCreated: run.issuesCreated.length,
     issuesExisting: run.issuesExisting.length,
     ruleIds: scan.violations.map((v) => v.ruleId),
+    retest: run.retest,
   };
 }

@@ -47,6 +47,8 @@ const auditRunSchema = new mongoose.Schema(
     incompleteRuleIds: { type: [String], default: [] },
     issuesCreated: { type: [ObjectId], default: [] },
     issuesExisting: { type: [ObjectId], default: [] },
+    // Filled only for retest runs: which issue was checked and the outcome.
+    retest: { type: Mixed, default: null },
   },
   { collection: 'auditruns', timestamps: { createdAt: true, updatedAt: false } }
 );

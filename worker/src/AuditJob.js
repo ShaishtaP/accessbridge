@@ -7,6 +7,7 @@ const auditJobSchema = new mongoose.Schema(
     workspace: mongoose.Schema.Types.ObjectId,
     page: mongoose.Schema.Types.ObjectId,
     requestedBy: mongoose.Schema.Types.ObjectId,
+    retestIssue: mongoose.Schema.Types.ObjectId,
     url: String,
     status: String,
     attempts: Number,

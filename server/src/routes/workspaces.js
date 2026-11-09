@@ -17,6 +17,7 @@ import {
 import pagesRouter from './pages.js';
 import issuesRouter from './issues.js';
 import auditsRouter from './audits.js';
+import sitesRouter from './sites.js';
 import { workspaceActivity } from '../controllers/activityController.js';
 
 const router = Router();
@@ -30,6 +31,7 @@ router.get('/:id', getWorkspace);
 router.post('/:id/members', validate(addMemberSchema), addMember);
 router.patch('/:id/members/:userId', validate(updateMemberSchema), updateMember);
 router.delete('/:id/members/:userId', removeMember);
+router.use('/:id/sites', sitesRouter);
 router.use('/:id/pages', pagesRouter);
 router.use('/:id/issues', issuesRouter);
 router.use('/:id/audits', auditsRouter);

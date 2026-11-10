@@ -13,7 +13,7 @@ export function findProof(token, { html = '', file = '' } = {}) {
   const hasMeta = metaTags.some(
     (tag) =>
       /name\s*=\s*["']?accessbridge-verification["']?/i.test(tag) &&
-      new RegExp(`content\s*=\s*["']?${token}["']?`).test(tag)
+      new RegExp(`content\\s*=\\s*["']?${token}["']?`).test(tag)
   );
   return hasMeta ? 'meta' : null;
 }

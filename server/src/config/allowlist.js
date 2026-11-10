@@ -10,8 +10,13 @@ export function allowedOrigins() {
     .map((origin) => new URL(origin).origin);
 }
 
-// Returns { ok: true, url } with a normalised URL, or { ok: false, reason }.
-export function checkAuditUrl(raw) {
+// extraOrigins are a workspace's verified sites; local dev origins are always allowed.
+export function isAllowedOrigin(origin, extraOrigins = []) {
+  return allowedOrigins().includes(origin) || extraOrigins.includes(origin);
+}
+
+// Checks the URL's shape only (scheme, credentials) and normalises it; the origin is checked separately.
+export function parseAuditUrl(raw) {
   let url;
   try {
     url = new URL(raw);
@@ -25,11 +30,17 @@ export function checkAuditUrl(raw) {
   if (url.username || url.password) {
     return { ok: false, reason: 'URLs with embedded credentials are not allowed' };
   }
-  if (!allowedOrigins().includes(url.origin)) {
-    return { ok: false, reason: `${url.origin} is not on the audit allowlist` };
-  }
-
   // The fragment never reaches the server, so two URLs differing only by #hash are the same page.
   url.hash = '';
-  return { ok: true, url: url.toString() };
+  return { ok: true, url: url.toString(), origin: url.origin };
+}
+
+// Returns { ok: true, url } with a normalised URL, or { ok: false, reason }.
+export function checkAuditUrl(raw, extraOrigins = []) {
+  const parsed = parseAuditUrl(raw);
+  if (!parsed.ok) return parsed;
+  if (!isAllowedOrigin(parsed.origin, extraOrigins)) {
+    return { ok: false, reason: `${parsed.origin} is not on the audit allowlist or a verified site of this workspace` };
+  }
+  return parsed;
 }

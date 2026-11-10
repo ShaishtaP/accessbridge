@@ -1,13 +1,14 @@
 import { z } from 'zod';
-import { checkAuditUrl } from '../config/allowlist.js';
+import { parseAuditUrl } from '../config/allowlist.js';
 
-// The URL is validated and normalised against the audit allowlist before it reaches the controller.
+// The URL's shape is validated and normalised here; the controller checks its origin against
+// the dev allowlist and the workspace's verified sites.
 const auditUrl = z
   .string()
   .trim()
   .min(1, 'URL is required')
   .transform((value, ctx) => {
-    const result = checkAuditUrl(value);
+    const result = parseAuditUrl(value);
     if (!result.ok) {
       ctx.addIssue({ code: 'custom', message: result.reason });
       return z.NEVER;

@@ -21,7 +21,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [x] **Task 11** — Audit job queue (MongoDB collection) and worker skeleton
 - [x] **Task 12** — Worker runs Playwright + axe-core, saves AuditRuns, creates issues
 - [x] **Task 13** — Fix-verification workflow: Fixed → retest → Verified / Reopened, original evidence preserved
-- [ ] **Task 14** (partial) — done: Site model, `/api/workspaces/:id/sites` list/add/delete, ownership verification route (meta tag or well-known file); left: let pages use verified site origins, sites smoke checks — Per-workspace site list: owners register their own deployed sites (e.g. `https://myapp.vercel.app`) alongside the local demo; ownership verification via a meta tag or `/.well-known/accessbridge.txt` token before a site can be audited
+- [x] **Task 14** — Per-workspace site list: owners register their own deployed sites (e.g. `https://myapp.vercel.app`) alongside the local demo; ownership verification via a meta tag or `/.well-known/accessbridge.txt` token before a site can be audited
 - [ ] **Task 15** — SSRF guard for public sites: resolve DNS and block private/loopback/link-local IPs (localhost only via the dev allowlist), re-check every redirect, page timeouts; audit a real deployed site end to end
 
 ### Week 3 — Dashboard & results
@@ -50,3 +50,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 12 | 2026-11-07 | Task 12 | Worker runs Playwright + axe-core 4.14 (allowlist enforced in worker and per request), AuditRuns stored, deduplicated issues created; recall 19/20 automatable seeded defects (95%) — see `docs/daily-notes/day-12.md` |
 | 13 | 2026-11-08 | Task 13 | Fix verification: `POST /issues/:issueId/retest` queues a retest job for a fixed issue, the worker re-scans the page and sets it to verified or reopened on the same issue (evidence and timeline kept), 13 retest smoke checks — see `docs/daily-notes/day-13.md` |
 | 14 | 2026-11-09 | Task 14 (partial) | Site model with per-site verification tokens, `/api/workspaces/:id/sites` list/add/delete (https domains only), `POST /sites/:siteId/verify` checks a meta tag or `/.well-known/accessbridge.txt` — see `docs/daily-notes/day-14.md` |
+| 15 | 2026-11-10 | Task 14 | Pages accepted on verified workspace sites (dev allowlist + verified origins), meta-tag proof matching hardened, 22 site smoke checks — see `docs/daily-notes/day-15.md` |

@@ -16,7 +16,8 @@
     "smoke:evidence": "node scripts/smoke-evidence.js",
     "smoke:activity": "node scripts/smoke-activity.js",
     "smoke:audits": "node scripts/smoke-audits.js",
-    "smoke:retest": "node scripts/smoke-retest.js"
+    "smoke:retest": "node scripts/smoke-retest.js",
+    "smoke:sites": "node scripts/smoke-sites.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

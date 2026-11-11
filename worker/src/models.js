@@ -57,3 +57,10 @@ auditRunSchema.index({ workspace: 1, page: 1, createdAt: -1 });
 export const Issue = mongoose.model('Issue', issueSchema);
 export const ActivityEvent = mongoose.model('ActivityEvent', activityEventSchema);
 export const AuditRun = mongoose.model('AuditRun', auditRunSchema);
+
+// Read-only view of workspace sites: the worker only needs verified origins.
+const siteSchema = new mongoose.Schema(
+  { workspace: ObjectId, origin: String, status: String },
+  { collection: 'sites' }
+);
+export const Site = mongoose.model('Site', siteSchema);

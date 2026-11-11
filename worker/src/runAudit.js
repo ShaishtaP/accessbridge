@@ -1,5 +1,5 @@
 import { scanPage } from './scanner.js';
-import { AuditRun, Issue, ActivityEvent } from './models.js';
+import { AuditRun, Issue, ActivityEvent, Site } from './models.js';
 import { applyRetest } from './retest.js';
 
 // Issues in these states are finished; a new finding at the same spot opens a fresh issue.
@@ -42,7 +42,9 @@ async function upsertIssue(job, violation, node, auditRunId) {
 // Scans the page, stores the AuditRun, and turns every failing element into a tracked issue.
 // Returns a small summary that is saved on the job.
 export async function runAudit(job) {
-  const scan = await scanPage(job.url);
+  // Verified sites of this workspace may be audited alongside the local dev origins.
+  const sites = await Site.find({ workspace: job.workspace, status: 'verified' }, 'origin').lean();
+  const scan = await scanPage(job.url, sites.map((s) => s.origin));
 
   const run = new AuditRun({
     workspace: job.workspace,

@@ -17,7 +17,8 @@
     "smoke:activity": "node scripts/smoke-activity.js",
     "smoke:audits": "node scripts/smoke-audits.js",
     "smoke:retest": "node scripts/smoke-retest.js",
-    "smoke:sites": "node scripts/smoke-sites.js"
+    "smoke:sites": "node scripts/smoke-sites.js",
+    "smoke:netguard": "node scripts/smoke-netguard.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

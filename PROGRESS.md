@@ -29,7 +29,12 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 - [ ] **Task 17** — Dashboard: workspaces, routes, issue list with filters
 - [ ] **Task 18** — Issue detail page: evidence, timeline, verification actions
 - [ ] **Task 19** — Metrics: recall vs seeded defects, verified fixes, audit time, API p95 latency
-- [ ] **Task 20** — Final README: screenshots, architecture, results, how to run
+
+### Week 4 — DevOps & launch
+- [ ] **Task 20** — Docker: Dockerfiles for server, worker (Playwright base image), client (static build served by Nginx) and demo site; `docker-compose.yml` that runs the whole stack with health checks, using `.env` for secrets; small, cached image layers and non-root users
+- [ ] **Task 21** — CI with GitHub Actions: on every push and pull request, install dependencies, run all smoke suites against a MongoDB service container, run the Playwright audit smoke test, build the client and the Docker images; status badge
+- [ ] **Task 22** — Free deployment: React client on a free static host, API on a free web-service tier with `/api/health` checks, CORS and production env vars; the worker runs as a Docker container (free hosts lack the RAM for Chromium); deployment steps documented
+- [ ] **Task 23** — Final README: screenshots, architecture, results, CI badge, live links, how to run
 
 ## Daily log
 

@@ -1,6 +1,7 @@
 // Ownership checks for public sites. A site counts as verified when its home page
 // has <meta name="accessbridge-verification" content="TOKEN"> or when
 // /.well-known/accessbridge.txt contains the token.
+import { checkFetchTarget } from './netGuard.js';
 
 const TIMEOUT_MS = 5000;
 const MAX_BYTES = 512 * 1024; // enough for any home page <head>, small enough to stay cheap
@@ -21,6 +22,10 @@ export function findProof(token, { html = '', file = '' } = {}) {
 // Fetches a URL as text without following redirects (a redirect could point
 // somewhere other than the site being verified) and with a size and time limit.
 async function fetchText(url) {
+  // A site's DNS can point at internal addresses, so resolve and check it before connecting.
+  const target = await checkFetchTarget(url);
+  if (!target.ok) throw new Error(target.reason);
+
   const res = await fetch(url, {
     redirect: 'manual',
     signal: AbortSignal.timeout(TIMEOUT_MS),
@@ -53,6 +58,8 @@ export async function checkOwnership(origin, token) {
   if (method) return { method };
 
   const unreachable = results.every((r) => r.status === 'rejected');
+  const blocked = results.find((r) => r.status === 'rejected' && /private or reserved/.test(r.reason?.message));
+  if (blocked) return { method: null, reason: blocked.reason.message };
   return {
     method: null,
     reason: unreachable

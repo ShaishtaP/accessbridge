@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* A clearly visible focus ring for keyboard users on every interactive element. */
+:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}

@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import Layout from './components/Layout.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 import Workspaces from './pages/Workspaces.jsx';
+import WorkspaceDetail from './pages/WorkspaceDetail.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<RequireAuth><Workspaces /></RequireAuth>} />
+            <Route path="workspaces/:id" element={<RequireAuth><WorkspaceDetail /></RequireAuth>} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="*" element={<Navigate to="/" replace />} />

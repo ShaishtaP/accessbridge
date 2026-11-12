@@ -1,5 +1,5 @@
 // Labelled input; the label is tied to the field with htmlFor/id so screen readers announce it.
-export default function TextField({ id, label, type = 'text', value, onChange, autoComplete, hint }) {
+export default function TextField({ id, label, type = 'text', value, onChange, autoComplete, hint, required = true }) {
   const hintId = hint ? `${id}-hint` : undefined;
   return (
     <div className="flex flex-col gap-1">
@@ -12,7 +12,7 @@ export default function TextField({ id, label, type = 'text', value, onChange, a
         onChange={(e) => onChange(e.target.value)}
         autoComplete={autoComplete}
         aria-describedby={hintId}
-        required
+        required={required}
         className="rounded border border-slate-400 px-3 py-2"
       />
       {hint && <p id={hintId} className="text-sm text-slate-600">{hint}</p>}

@@ -18,9 +18,12 @@ export async function api(path, { method = 'GET', body } = {}) {
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
-  const data = await res.json().catch(() => ({}));
+  // 204 No Content has no body to parse.
+  const data = res.status === 204 ? {} : await res.json().catch(() => ({}));
   if (!res.ok) {
-    const err = new Error(data.error || `Request failed (${res.status})`);
+    // Validation errors carry per-field details; the first one is the most useful message.
+    const detail = data.details?.[0]?.message;
+    const err = new Error(detail || data.error || `Request failed (${res.status})`);
     err.status = res.status;
     throw err;
   }

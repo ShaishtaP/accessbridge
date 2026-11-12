@@ -26,7 +26,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 
 ### Week 3 — Dashboard & results
 - [x] **Task 16** — React app setup (Vite, Tailwind, router) and login/register pages
-- [ ] **Task 17** — Dashboard: workspaces, routes, issue list with filters
+- [x] **Task 17** — Dashboard: workspaces, routes, issue list with filters
 - [ ] **Task 18** — Issue detail page: evidence, timeline, verification actions
 - [ ] **Task 19** — Metrics: recall vs seeded defects, verified fixes, audit time, API p95 latency
 
@@ -58,3 +58,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 15 | 2026-11-10 | Task 14 | Pages accepted on verified workspace sites (dev allowlist + verified origins), meta-tag proof matching hardened, 22 site smoke checks — see `docs/daily-notes/day-15.md` |
 | 16 | 2026-11-11 | Task 15 | SSRF guard: DNS resolution with private/loopback/link-local/reserved IPv4 + IPv6 blocking, every request and redirect hop re-checked, service workers blocked, navigation/action/scan timeouts, guard applied to ownership checks; public site (example.com) audited through the guarded scanner, 24 net guard checks — see `docs/daily-notes/day-16.md` |
 | 17 | 2026-11-12 | Task 16 | React client (Vite, Tailwind 4, React Router) with `/api` dev proxy, auth context backed by `/api/auth/me`, protected routes, accessible login and register pages — see `docs/daily-notes/day-17.md` |
+| 18 | 2026-11-12 | Task 17 | Dashboard: workspace list and create form, workspace page with members, pages (owner/admin add/remove, allowed origins) and per-page audit runs with live job status, issue list with status/severity/page/WCAG filters kept in the URL — see `docs/daily-notes/day-18.md` |

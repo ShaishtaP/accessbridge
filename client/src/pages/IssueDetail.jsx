@@ -4,13 +4,17 @@ import { api } from '../lib/api.js';
 import Alert from '../components/Alert.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import EvidenceSection from '../components/EvidenceSection.jsx';
+import ActivityTimeline from '../components/ActivityTimeline.jsx';
 import usePageTitle from '../hooks/usePageTitle.js';
 
-// One issue with its details and evidence.
+// One issue with its details, evidence and timeline.
 export default function IssueDetail() {
   const { id, issueId } = useParams();
   const [issue, setIssue] = useState(null);
   const [error, setError] = useState('');
+  // Bumped after any change so the timeline reloads and shows the new event.
+  const [timelineKey, setTimelineKey] = useState(0);
+  const basePath = `/workspaces/${id}/issues/${issueId}`;
   usePageTitle(issue?.title || 'Issue');
 
   useEffect(() => {
@@ -38,7 +42,8 @@ export default function IssueDetail() {
             <dd>{issue.wcag}</dd>
           </dl>
           {issue.description && <p className="mt-4 whitespace-pre-line text-slate-800">{issue.description}</p>}
-          <EvidenceSection basePath={`/workspaces/${id}/issues/${issueId}`} />
+          <EvidenceSection basePath={basePath} onAdded={() => setTimelineKey((k) => k + 1)} />
+          <ActivityTimeline basePath={basePath} refreshKey={timelineKey} />
         </>
       )}
     </div>

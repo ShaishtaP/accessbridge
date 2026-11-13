@@ -8,14 +8,16 @@ export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
 
 export async function api(path, { method = 'GET', body } = {}) {
   const headers = { Accept: 'application/json' };
-  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  // FormData (file uploads) sets its own multipart Content-Type with the boundary.
+  const isForm = body instanceof FormData;
+  if (body !== undefined && !isForm) headers['Content-Type'] = 'application/json';
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const res = await fetch(`/api${path}`, {
     method,
     headers,
-    body: body === undefined ? undefined : JSON.stringify(body),
+    body: body === undefined || isForm ? body : JSON.stringify(body),
   });
 
   // 204 No Content has no body to parse.
@@ -28,4 +30,13 @@ export async function api(path, { method = 'GET', body } = {}) {
     throw err;
   }
   return data;
+}
+
+// Downloads a protected file (e.g. a screenshot) with the token and returns a local object URL,
+// because a plain <img src> cannot send the Authorization header.
+export async function fetchFileUrl(url) {
+  const token = getToken();
+  const res = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+  if (!res.ok) throw new Error(`Could not load file (${res.status})`);
+  return URL.createObjectURL(await res.blob());
 }

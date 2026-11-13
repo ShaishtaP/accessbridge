@@ -3,9 +3,10 @@ import { Link, useParams } from 'react-router';
 import { api } from '../lib/api.js';
 import Alert from '../components/Alert.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
+import EvidenceSection from '../components/EvidenceSection.jsx';
 import usePageTitle from '../hooks/usePageTitle.js';
 
-// Summary view of one issue; evidence, timeline and verification actions come next.
+// One issue with its details and evidence.
 export default function IssueDetail() {
   const { id, issueId } = useParams();
   const [issue, setIssue] = useState(null);
@@ -37,6 +38,7 @@ export default function IssueDetail() {
             <dd>{issue.wcag}</dd>
           </dl>
           {issue.description && <p className="mt-4 whitespace-pre-line text-slate-800">{issue.description}</p>}
+          <EvidenceSection basePath={`/workspaces/${id}/issues/${issueId}`} />
         </>
       )}
     </div>

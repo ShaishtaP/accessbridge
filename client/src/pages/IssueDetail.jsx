@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api } from '../lib/api.js';
 import Alert from '../components/Alert.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import EvidenceSection from '../components/EvidenceSection.jsx';
 import ActivityTimeline from '../components/ActivityTimeline.jsx';
+import VerificationActions from '../components/VerificationActions.jsx';
 import usePageTitle from '../hooks/usePageTitle.js';
 
-// One issue with its details, evidence and timeline.
+// One issue with its details, verification actions, evidence and timeline.
 export default function IssueDetail() {
   const { id, issueId } = useParams();
   const [issue, setIssue] = useState(null);
@@ -17,11 +18,19 @@ export default function IssueDetail() {
   const basePath = `/workspaces/${id}/issues/${issueId}`;
   usePageTitle(issue?.title || 'Issue');
 
-  useEffect(() => {
-    api(`/workspaces/${id}/issues/${issueId}`)
+  const loadIssue = useCallback(() => {
+    api(basePath)
       .then((data) => setIssue(data.issue))
       .catch((err) => setError(err.message));
-  }, [id, issueId]);
+  }, [basePath]);
+
+  useEffect(() => { loadIssue(); }, [loadIssue]);
+
+  // After a status change or retest, refresh both the issue and its timeline.
+  const handleChange = useCallback(() => {
+    loadIssue();
+    setTimelineKey((k) => k + 1);
+  }, [loadIssue]);
 
   return (
     <div className="py-6">
@@ -40,8 +49,11 @@ export default function IssueDetail() {
             <dd><StatusBadge value={issue.status} /></dd>
             <dt className="font-medium">WCAG</dt>
             <dd>{issue.wcag}</dd>
+            {issue.ruleId && (<><dt className="font-medium">Rule</dt><dd><code>{issue.ruleId}</code></dd></>)}
+            {issue.selector && (<><dt className="font-medium">Element</dt><dd><code className="break-all">{issue.selector}</code></dd></>)}
           </dl>
           {issue.description && <p className="mt-4 whitespace-pre-line text-slate-800">{issue.description}</p>}
+          <VerificationActions basePath={basePath} issue={issue} onChange={handleChange} />
           <EvidenceSection basePath={basePath} onAdded={() => setTimelineKey((k) => k + 1)} />
           <ActivityTimeline basePath={basePath} refreshKey={timelineKey} />
         </>

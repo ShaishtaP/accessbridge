@@ -19,6 +19,7 @@ import issuesRouter from './issues.js';
 import auditsRouter from './audits.js';
 import sitesRouter from './sites.js';
 import { workspaceActivity } from '../controllers/activityController.js';
+import { workspaceMetrics } from '../controllers/metricsController.js';
 
 const router = Router();
 
@@ -36,5 +37,6 @@ router.use('/:id/pages', pagesRouter);
 router.use('/:id/issues', issuesRouter);
 router.use('/:id/audits', auditsRouter);
 router.get('/:id/activity', workspaceActivity);
+router.get('/:id/metrics', workspaceMetrics);
 
 export default router;

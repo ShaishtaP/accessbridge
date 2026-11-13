@@ -114,7 +114,9 @@ export default function WorkspaceDetail() {
       <h1 className="mt-2 text-2xl font-bold">{workspace.name}</h1>
       {workspace.description && <p className="mt-1 text-slate-700">{workspace.description}</p>}
       <p className="mt-3">
-        <Link to={`/workspaces/${id}/issues`} className="font-semibold text-blue-800 underline">View issues</Link>
+        <Link to={`/workspaces/${id}/issues`} className="font-semibold text-blue-800 underline">View issues</Link>{' '}
+        <span aria-hidden="true">·</span>{' '}
+        <Link to={`/workspaces/${id}/metrics`} className="font-semibold text-blue-800 underline">View metrics</Link>
       </p>
 
       {/* One polite live region announces adds, removals and queued audits. */}

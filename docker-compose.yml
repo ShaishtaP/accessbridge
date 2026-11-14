@@ -1,0 +1,42 @@
+# Full AccessBridge stack. Secrets (MONGODB_URI, JWT_SECRET) come from server/.env.
+# Start: docker compose up --build   Client: http://localhost:8080   Demo: http://localhost:4000
+name: accessbridge
+
+services:
+  server:
+    build: { context: ., dockerfile: server/Dockerfile }
+    env_file: server/.env
+    environment:
+      PORT: "5000"
+    ports: ["5000:5000"]
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  demo-site:
+    build: { context: ., dockerfile: demo-site/Dockerfile }
+    ports: ["4000:4000"]
+    restart: unless-stopped
+
+  worker:
+    build: { context: ., dockerfile: worker/Dockerfile }
+    env_file: server/.env
+    # Shares the demo-site network namespace, so allowlisted http://localhost:4000 pages resolve
+    # to the demo container exactly as they do in local development.
+    network_mode: "service:demo-site"
+    # Chromium needs more shared memory than the Docker default
+    shm_size: "1gb"
+    depends_on:
+      demo-site: { condition: service_healthy }
+      server: { condition: service_healthy }
+    restart: unless-stopped
+
+  client:
+    build: { context: ., dockerfile: client/Dockerfile }
+    ports: ["8080:8080"]
+    depends_on:
+      server: { condition: service_healthy }
+    restart: unless-stopped
+
+volumes:
+  uploads:

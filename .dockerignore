@@ -1,0 +1,11 @@
+# Keep build contexts small and free of secrets
+.git
+**/node_modules
+**/dist
+**/.env
+**/.env.*
+**/*.env*
+server/uploads
+learning
+docs
+**/*.log

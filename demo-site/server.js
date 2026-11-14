@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 // Zero-dependency static server for the demo site, so audits run against local pages only.
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 const PORT = Number(process.env.DEMO_PORT) || 4000;
+// Localhost only by default; the Docker image sets DEMO_HOST=0.0.0.0 so the port can be published.
+const HOST = process.env.DEMO_HOST || '127.0.0.1';
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -33,6 +35,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, '127.0.0.1', () => {
+server.listen(PORT, HOST, () => {
   console.log(`Demo site running at http://localhost:${PORT}`);
 });

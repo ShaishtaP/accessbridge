@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext.jsx';
 import Alert from '../components/Alert.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 import TextField from '../components/TextField.jsx';
+import SitesSection from '../components/SitesSection.jsx';
+import MembersSection from '../components/MembersSection.jsx';
 import usePageTitle from '../hooks/usePageTitle.js';
 
 const POLL_MS = 3000;
@@ -41,6 +43,12 @@ export default function WorkspaceDetail() {
 
   const loadJobs = useCallback(
     () => api(`/workspaces/${id}/audits`).then((data) => setJobs(latestJobByPage(data.jobs))),
+    [id],
+  );
+
+  // A newly verified (or removed) site changes which page URLs the server accepts.
+  const refreshOrigins = useCallback(
+    () => api(`/workspaces/${id}/pages`).then((pg) => setAllowedOrigins(pg.allowedOrigins)).catch(() => {}),
     [id],
   );
 
@@ -190,19 +198,8 @@ export default function WorkspaceDetail() {
         )}
       </section>
 
-      <section aria-labelledby="members-heading" className="mt-8">
-        <h2 id="members-heading" className="text-xl font-semibold">Members</h2>
-        <ul className="mt-3 divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
-          {workspace.members.map((m) => (
-            <li key={m.userId} className="flex justify-between p-3">
-              <span>
-                {m.name} <span className="text-sm text-slate-600">{m.email}</span>
-              </span>
-              <span className="capitalize text-slate-700">{m.role}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <SitesSection workspaceId={id} canManage={canManage} onSitesChange={refreshOrigins} announce={setStatus} />
+      <MembersSection workspace={workspace} canManage={canManage} onWorkspaceChange={setWorkspace} announce={setStatus} />
     </div>
   );
 }

@@ -10,7 +10,10 @@ import { trackLatency } from './middleware/latency.js';
 export function createApp() {
   const app = express();
 
-  app.use(cors());
+  // In production only the deployed client may call the API from a browser (CORS_ORIGIN,
+  // comma-separated). Without it, any origin is allowed, which suits local development.
+  const corsOrigins = (process.env.CORS_ORIGIN || '').split(',').map((o) => o.trim()).filter(Boolean);
+  app.use(cors(corsOrigins.length ? { origin: corsOrigins } : undefined));
   app.use('/api', trackLatency);
   app.use(express.json({ limit: '1mb' }));
 

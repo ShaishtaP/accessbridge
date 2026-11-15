@@ -32,7 +32,7 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 
 ### Week 4 — DevOps & launch
 - [x] **Task 20** — Docker: Dockerfiles for server, worker (Playwright base image), client (static build served by Nginx) and demo site; `docker-compose.yml` that runs the whole stack with health checks, using `.env` for secrets; small, cached image layers and non-root users
-- [ ] **Task 21** — CI with GitHub Actions: on every push and pull request, install dependencies, run all smoke suites against a MongoDB service container, run the Playwright audit smoke test, build the client and the Docker images; status badge
+- [x] **Task 21** — CI with GitHub Actions: on every push and pull request, install dependencies, run all smoke suites against a MongoDB service container, run the Playwright audit smoke test, build the client and the Docker images; status badge
 - [ ] **Task 22** — Free deployment: React client on a free static host, API on a free web-service tier with `/api/health` checks, CORS and production env vars; the worker runs as a Docker container (free hosts lack the RAM for Chromium); deployment steps documented
 - [ ] **Task 23** — Final README: screenshots, architecture, results, CI badge, live links, how to run
 
@@ -62,3 +62,4 @@ Roadmap for AccessBridge, built in small, shippable increments. Each completed t
 | 19 | 2026-11-13 | Task 18 | Issue detail page: rule and element details, status changes, retest request with live job polling (verified/reopened result), append-only evidence with keyboard notes and authenticated screenshot uploads/previews, activity timeline with field-level changes — see `docs/daily-notes/day-19.md` |
 | 20 | 2026-11-13 | Task 19 | Metrics: `GET /api/workspaces/:id/metrics` with issue counts, verified fixes, audit scan/total time and API p95 latency (in-memory request timing), recall against seeded demo defects (19/20 automatable, 95%), client metrics page, 13 metrics smoke checks — see `docs/daily-notes/day-20.md` |
 | 21 | 2026-11-14 | Task 20 | Docker: images for server (Node Alpine), worker (Playwright base), client (Vite build served by unprivileged Nginx with /api proxy) and demo site, all non-root with cached dependency layers; `docker-compose.yml` with health-gated startup, secrets from `server/.env` and an uploads volume — see `docs/daily-notes/day-21.md` |
+| 22 | 2026-11-15 | Task 21 | GitHub Actions CI on every push and pull request: server smoke suites against a MongoDB 8 service container, Playwright audit smoke test on the demo site, client build, Docker image builds for all four services with layer caching; README status badge — see `docs/daily-notes/day-22.md` |

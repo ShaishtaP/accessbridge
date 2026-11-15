@@ -1,5 +1,7 @@
 # AccessBridge
 
+[![CI](https://github.com/ShaishtaP/accessbridge/actions/workflows/ci.yml/badge.svg)](https://github.com/ShaishtaP/accessbridge/actions/workflows/ci.yml)
+
 **An accessibility issue tracker that turns page audits into verified fixes.**
 
 Teams log accessibility problems found on web pages, attach evidence (screenshots, keyboard-navigation notes, automated scan results), fix them, and then *prove* the fix with a retest. An issue only closes once the retest passes, and both the original finding and the retest evidence are kept, so every closure is auditable.

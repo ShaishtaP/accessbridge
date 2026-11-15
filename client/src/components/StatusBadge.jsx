@@ -8,6 +8,7 @@ const COLOURS = {
   in_progress: 'bg-blue-100 text-blue-900',
   fixed: 'bg-teal-100 text-teal-900',
   verified: 'bg-green-100 text-green-900',
+  pending: 'bg-amber-100 text-amber-900',
   reopened: 'bg-red-100 text-red-900',
   wont_fix: 'bg-slate-100 text-slate-800',
   critical: 'bg-red-100 text-red-900',

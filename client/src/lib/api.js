@@ -2,6 +2,9 @@
 // the server's { error } responses into thrown Errors with that message.
 const TOKEN_KEY = 'accessbridge_token';
 
+// Empty in development (Vite proxies /api); set at build time when the API lives on another domain.
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
@@ -14,7 +17,7 @@ export async function api(path, { method = 'GET', body } = {}) {
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE}/api${path}`, {
     method,
     headers,
     body: body === undefined || isForm ? body : JSON.stringify(body),
@@ -36,7 +39,9 @@ export async function api(path, { method = 'GET', body } = {}) {
 // because a plain <img src> cannot send the Authorization header.
 export async function fetchFileUrl(url) {
   const token = getToken();
-  const res = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+  // File URLs from the API are paths like /api/...; they live on the API's domain.
+  const fullUrl = url.startsWith('/') ? `${API_BASE}${url}` : url;
+  const res = await fetch(fullUrl, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
   if (!res.ok) throw new Error(`Could not load file (${res.status})`);
   return URL.createObjectURL(await res.blob());
 }

@@ -32,8 +32,8 @@ jobs:
       run:
         working-directory: server
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -43,7 +43,7 @@ jobs:
         run: npm run smoke
       - name: Database smoke suites
         run: |
-          for suite in auth workspaces pages issues evidence activity audits retest sites netguard metrics; do
+          for suite in auth workspaces pages issues evidence activity sites netguard metrics; do
             echo "::group::smoke:$suite"
             npm run --silent "smoke:$suite"
             echo "::endgroup::"
@@ -63,18 +63,29 @@ jobs:
       run:
         working-directory: worker
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: worker/package-lock.json
+          cache-dependency-path: |
+            worker/package-lock.json
+            server/package-lock.json
       - run: npm ci --no-audit --no-fund
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
       # Serves demo-site, audits all four pages and checks recall against seeded-defects.json.
       - name: Audit the demo site
         run: npm run smoke
+      # These server suites start the real worker, so they run here where Chromium is installed.
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci --no-audit --no-fund
+      - name: Audit queue and retest smoke suites
+        working-directory: server
+        run: |
+          npm run --silent smoke:audits
+          npm run --silent smoke:retest
 
   client:
     name: Client build
@@ -83,8 +94,8 @@ jobs:
       run:
         working-directory: client
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -100,7 +111,7 @@ jobs:
       matrix:
         service: [server, worker, client, demo-site]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: docker/setup-buildx-action@v3
       # Same build context as docker-compose.yml (repo root); images are built, not pushed.
       - uses: docker/build-push-action@v6

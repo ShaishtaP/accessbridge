@@ -1,0 +1,52 @@
+# Render Blueprint: API (free web service), React client and demo site (free static sites).
+# The audit worker is not deployed here: Chromium needs more memory than the free tier offers,
+# so it runs locally (`npm run start:live` in worker/) against the same MongoDB Atlas database.
+# Service names become the public URLs (https://<name>.onrender.com); if a name is changed,
+# update the URLs in VITE_API_URL, CORS_ORIGIN, AUDIT_ALLOWLIST and worker/live.vars.
+services:
+  - type: web
+    name: accessbridge-api-sp
+    runtime: node
+    plan: free
+    region: singapore # closest free region to the Atlas cluster in Mumbai
+    rootDir: server
+    buildCommand: npm ci --no-audit --no-fund
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: MONGODB_URI
+        sync: false # entered in the Render dashboard, never stored in the repo
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: https://accessbridge-app-sp.onrender.com
+      # In production the deployed demo site replaces the localhost demo on the allowlist.
+      - key: AUDIT_ALLOWLIST
+        value: https://accessbridge-demo-sp.onrender.com
+
+  - type: web
+    name: accessbridge-app-sp
+    runtime: static
+    rootDir: client
+    buildCommand: npm ci --no-audit --no-fund && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: VITE_API_URL
+        value: https://accessbridge-api-sp.onrender.com
+    routes:
+      # Client-side routes (/workspaces/...) are handled by React Router.
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  - type: web
+    name: accessbridge-demo-sp
+    runtime: static
+    rootDir: demo-site
+    # Publish only the pages and assets, not the local server or Dockerfile.
+    buildCommand: mkdir -p public && cp -r *.html styles.css images public/
+    staticPublishPath: public

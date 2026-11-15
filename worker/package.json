@@ -8,6 +8,7 @@
   "scripts": {
     "start": "node src/index.js",
     "once": "node src/index.js --once",
+    "start:live": "node --env-file=live.vars src/index.js",
     "smoke": "node scripts/smoke-audit.js"
   },
   "dependencies": {

@@ -3,7 +3,8 @@ export default function TextField({ id, label, type = 'text', value, onChange, a
   const hintId = hint ? `${id}-hint` : undefined;
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="font-medium">{label}</label>
+      <label htmlFor={id} className="font-bold">{label}</label>
+      {hint && <p id={hintId} className="text-ab-secondary">{hint}</p>}
       <input
         id={id}
         name={id}
@@ -13,9 +14,8 @@ export default function TextField({ id, label, type = 'text', value, onChange, a
         autoComplete={autoComplete}
         aria-describedby={hintId}
         required={required}
-        className="rounded border border-slate-400 px-3 py-2"
+        className="ab-input w-full"
       />
-      {hint && <p id={hintId} className="text-sm text-slate-600">{hint}</p>}
     </div>
   );
 }

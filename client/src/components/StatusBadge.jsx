@@ -1,28 +1,26 @@
-// Coloured pill for job and issue states. The text carries the meaning; colour only reinforces it.
+// Tag for job, issue, site and severity states. The word carries the meaning; colour only supports it.
 const COLOURS = {
-  queued: 'bg-slate-100 text-slate-800',
-  running: 'bg-blue-100 text-blue-900',
-  done: 'bg-green-100 text-green-900',
-  failed: 'bg-red-100 text-red-900',
-  open: 'bg-amber-100 text-amber-900',
-  in_progress: 'bg-blue-100 text-blue-900',
-  fixed: 'bg-teal-100 text-teal-900',
-  verified: 'bg-green-100 text-green-900',
-  pending: 'bg-amber-100 text-amber-900',
-  reopened: 'bg-red-100 text-red-900',
-  wont_fix: 'bg-slate-100 text-slate-800',
-  critical: 'bg-red-100 text-red-900',
-  serious: 'bg-orange-100 text-orange-900',
-  moderate: 'bg-amber-100 text-amber-900',
-  minor: 'bg-slate-100 text-slate-800',
+  queued: 'bg-[#e5e6e7] text-[#3d4245]',
+  running: 'bg-[#d2e2f1] text-[#0c2d4a]',
+  done: 'bg-[#cce2d8] text-[#005a30]',
+  failed: 'bg-[#f4cdc6] text-[#2a0b06]',
+  open: 'bg-[#fff7bf] text-[#594d00]',
+  in_progress: 'bg-[#d2e2f1] text-[#0c2d4a]',
+  fixed: 'bg-[#bfe3e0] text-[#10403c]',
+  verified: 'bg-[#cce2d8] text-[#005a30]',
+  pending: 'bg-[#fcd6c3] text-[#6e3619]',
+  reopened: 'bg-[#f4cdc6] text-[#2a0b06]',
+  wont_fix: 'bg-[#e5e6e7] text-[#3d4245]',
+  critical: 'bg-[#f4cdc6] text-[#2a0b06]',
+  serious: 'bg-[#fcd6c3] text-[#6e3619]',
+  moderate: 'bg-[#fff7bf] text-[#594d00]',
+  minor: 'bg-[#e5e6e7] text-[#3d4245]',
 };
 
-export const labelFor = (value) => value.replace('_', ' ');
+const LABELS = { in_progress: 'In progress', wont_fix: "Won't fix" };
+
+export const labelFor = (value) => LABELS[value] || value.charAt(0).toUpperCase() + value.slice(1);
 
 export default function StatusBadge({ value }) {
-  return (
-    <span className={`inline-block rounded-full px-2 py-0.5 text-sm font-medium capitalize ${COLOURS[value] || ''}`}>
-      {labelFor(value)}
-    </span>
-  );
+  return <strong className={`ab-tag ${COLOURS[value] || ''}`}>{labelFor(value)}</strong>;
 }

@@ -2,8 +2,9 @@
 export default function Alert({ children }) {
   if (!children) return null;
   return (
-    <div role="alert" className="my-4 rounded border border-red-300 bg-red-50 p-3 text-red-800">
-      {children}
+    <div role="alert" className="ab-error">
+      <h2 className="mb-1 text-xl">There is a problem</h2>
+      <p className="font-normal text-ab-red">{children}</p>
     </div>
   );
 }

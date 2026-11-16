@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-// Shared frame for the login and register forms. The error box is a live
+// Shared frame for the login and register forms. The error summary is a live
 // alert and receives focus, so the message is announced and seen right away.
 export default function AuthCard({ title, error, submitting, submitLabel, onSubmit, footer, children }) {
   const errorRef = useRef(null);
@@ -10,24 +10,21 @@ export default function AuthCard({ title, error, submitting, submitLabel, onSubm
   }, [error]);
 
   return (
-    <section className="mx-auto mt-10 max-w-sm rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <h1 className="mb-4 text-2xl font-bold">{title}</h1>
+    <section className="mt-10 max-w-md">
+      <h1 className="mb-6 text-4xl font-bold">{title}</h1>
       {error && (
-        <div ref={errorRef} tabIndex={-1} role="alert" className="mb-4 rounded border border-red-300 bg-red-50 p-3 text-red-800">
-          {error}
+        <div ref={errorRef} tabIndex={-1} role="alert" className="ab-error">
+          <h2 className="mb-1 text-xl">There is a problem</h2>
+          <p className="font-normal text-ab-red">{error}</p>
         </div>
       )}
-      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
+      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
         {children}
-        <button
-          type="submit"
-          disabled={submitting}
-          className="rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800 disabled:opacity-60"
-        >
+        <button type="submit" disabled={submitting} className="ab-btn self-start">
           {submitting ? 'Please wait…' : submitLabel}
         </button>
       </form>
-      <p className="mt-4 text-sm">{footer}</p>
+      <p className="mt-6">{footer}</p>
     </section>
   );
 }

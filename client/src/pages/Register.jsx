@@ -39,7 +39,7 @@ export default function Register() {
       submitting={submitting}
       submitLabel="Register"
       onSubmit={handleSubmit}
-      footer={<>Already registered? <Link to="/login" className="text-blue-800 underline">Log in</Link></>}
+      footer={<>Already registered? <Link to="/login">Log in</Link></>}
     >
       <TextField id="name" label="Name" value={name} onChange={setName} autoComplete="name" />
       <TextField id="email" label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />

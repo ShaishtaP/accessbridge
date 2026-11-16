@@ -14,8 +14,8 @@ const FILTER_KEYS = ['status', 'severity', 'pageId', 'wcag'];
 function SelectField({ id, label, value, onChange, options }) {
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="font-medium">{label}</label>
-      <select id={id} name={id} value={value} onChange={(e) => onChange(e.target.value)} className="rounded border border-slate-400 bg-white px-3 py-2">
+      <label htmlFor={id} className="font-bold">{label}</label>
+      <select id={id} name={id} value={value} onChange={(e) => onChange(e.target.value)} className="ab-input">
         <option value="">Any</option>
         {options.map((o) => (
           <option key={o.value} value={o.value}>{o.label}</option>
@@ -79,15 +79,15 @@ export default function Issues() {
 
   return (
     <div className="py-6">
-      <nav aria-label="Breadcrumb" className="text-sm">
-        <Link to="/" className="text-blue-800 underline">Workspaces</Link> <span aria-hidden="true">/</span>{' '}
-        <Link to={`/workspaces/${id}`} className="text-blue-800 underline">{workspace?.name || 'Workspace'}</Link>{' '}
+      <nav aria-label="Breadcrumb" className="text-base">
+        <Link to="/">Workspaces</Link> <span aria-hidden="true">/</span>{' '}
+        <Link to={`/workspaces/${id}`}>{workspace?.name || 'Workspace'}</Link>{' '}
         <span aria-hidden="true">/</span> Issues
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">Issues</h1>
+      <h1 className="mt-2 text-4xl font-bold">Issues</h1>
 
-      <form onSubmit={applyFilters} aria-labelledby="filters-heading" className="mt-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 id="filters-heading" className="text-lg font-semibold">Filters</h2>
+      <form onSubmit={applyFilters} aria-labelledby="filters-heading" className="ab-panel mt-4">
+        <h2 id="filters-heading" className="text-xl font-bold">Filters</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <SelectField id="filter-status" label="Status" value={filters.status} onChange={setFilter('status')} options={toOptions(STATUSES)} />
           <SelectField id="filter-severity" label="Severity" value={filters.severity} onChange={setFilter('severity')} options={toOptions(SEVERITIES)} />
@@ -96,16 +96,16 @@ export default function Issues() {
           <TextField id="filter-wcag" label="WCAG criterion" value={filters.wcag} onChange={setFilter('wcag')} hint="For example 1.4.3" required={false} />
         </div>
         <div className="mt-4 flex gap-2">
-          <button type="submit" className="rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800">Apply filters</button>
-          <button type="button" onClick={clearFilters} className="rounded border border-slate-400 px-4 py-2 hover:bg-slate-100">Clear</button>
+          <button type="submit" className="ab-btn">Apply filters</button>
+          <button type="button" onClick={clearFilters} className="ab-btn ab-btn-secondary">Clear</button>
         </div>
       </form>
 
       <Alert>{error}</Alert>
 
       <section aria-labelledby="results-heading" className="mt-6">
-        <h2 id="results-heading" className="text-xl font-semibold">Results</h2>
-        <p role="status" className="mt-1 text-sm text-slate-700">
+        <h2 id="results-heading" className="text-2xl font-bold">Results</h2>
+        <p role="status" className="mt-1 text-base text-ab-secondary">
           {issues === null ? (error ? '' : 'Loading…') : `${issues.length} ${issues.length === 1 ? 'issue' : 'issues'} found`}
         </p>
         {issues?.length > 0 && (
@@ -113,7 +113,7 @@ export default function Issues() {
             <table className="w-full border-collapse bg-white text-left">
               <caption className="sr-only">Issues matching the current filters</caption>
               <thead>
-                <tr className="border-b border-slate-300">
+                <tr className="border-b border-ab-border">
                   <th scope="col" className="p-2">Issue</th>
                   <th scope="col" className="p-2">Severity</th>
                   <th scope="col" className="p-2">Status</th>
@@ -123,13 +123,13 @@ export default function Issues() {
               </thead>
               <tbody>
                 {issues.map((issue) => (
-                  <tr key={issue.id} className="border-b border-slate-200 align-top">
+                  <tr key={issue.id} className="border-b border-ab-border align-top">
                     <th scope="row" className="p-2 font-normal">
-                      <Link to={`/workspaces/${id}/issues/${issue.id}`} className="text-blue-800 underline">{issue.title}</Link>
+                      <Link to={`/workspaces/${id}/issues/${issue.id}`}>{issue.title}</Link>
                     </th>
                     <td className="p-2"><StatusBadge value={issue.severity} /></td>
                     <td className="p-2"><StatusBadge value={issue.status} /></td>
-                    <td className="p-2">{issue.wcag}</td>
+                    <td className="p-2 whitespace-nowrap">{issue.wcag}</td>
                     <td className="p-2">{pageName(issue.pageId)}</td>
                   </tr>
                 ))}

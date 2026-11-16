@@ -56,36 +56,36 @@ export default function MembersSection({ workspace, canManage, onWorkspaceChange
 
   return (
     <section aria-labelledby="members-heading" className="mt-8">
-      <h2 id="members-heading" className="text-xl font-semibold">Members</h2>
-      <ul className="mt-3 divide-y divide-slate-200 rounded-lg border border-slate-200 bg-white">
+      <h2 id="members-heading" className="text-2xl font-bold">Members</h2>
+      <ul className="mt-3 divide-y divide-ab-border border border-ab-border bg-white">
         {workspace.members.map((m) => {
           const isSelf = m.userId === user.id;
           const editable = canManage && m.role !== 'owner' && !isSelf;
           return (
             <li key={m.userId} className="flex flex-wrap items-center justify-between gap-2 p-3">
               <span>
-                {m.name} {isSelf && <span className="text-sm text-slate-600">(you)</span>}{' '}
-                <span className="text-sm text-slate-600">{m.email}</span>
+                {m.name} {isSelf && <span className="text-base text-ab-secondary">(you)</span>}{' '}
+                <span className="text-base text-ab-secondary">{m.email}</span>
               </span>
               <span className="flex items-center gap-2">
                 {editable ? (
                   <>
                     <label htmlFor={`role-${m.userId}`} className="sr-only">Role for {m.name}</label>
                     <select id={`role-${m.userId}`} value={m.role} onChange={(e) => handleRole(m, e.target.value)}
-                      className="rounded border border-slate-400 bg-white px-2 py-1">
+                      className="ab-input">
                       {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
                     </select>
                     <button type="button" onClick={() => handleRemove(m)} aria-label={`Remove ${m.name}`}
-                      className="rounded border border-red-400 px-3 py-1 text-sm text-red-800 hover:bg-red-50">
+                      className="ab-btn ab-btn-warning ab-btn-small">
                       Remove
                     </button>
                   </>
                 ) : (
-                  <span className="capitalize text-slate-700">{m.role}</span>
+                  <span className="capitalize text-ab-secondary">{m.role}</span>
                 )}
                 {isSelf && m.role !== 'owner' && (
                   <button type="button" onClick={() => handleRemove(m)}
-                    className="rounded border border-slate-400 px-3 py-1 text-sm hover:bg-slate-100">
+                    className="ab-btn ab-btn-secondary ab-btn-small">
                     Leave workspace
                   </button>
                 )}
@@ -96,20 +96,20 @@ export default function MembersSection({ workspace, canManage, onWorkspaceChange
       </ul>
 
       {canManage && (
-        <form onSubmit={handleInvite} noValidate className="mt-4 max-w-md rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <h3 className="text-lg font-semibold">Add a member</h3>
+        <form onSubmit={handleInvite} noValidate className="ab-panel mt-4 max-w-md">
+          <h3 className="text-xl font-bold">Add a member</h3>
           <Alert>{formError}</Alert>
           <div className="mt-3 flex flex-col gap-4">
             <TextField id="member-email" label="Email" type="email" value={email} onChange={setEmail}
               autoComplete="off" hint="The person needs an AccessBridge account first." />
             <div className="flex flex-col gap-1">
-              <label htmlFor="member-role" className="font-medium">Role</label>
+              <label htmlFor="member-role" className="font-bold">Role</label>
               <select id="member-role" value={role} onChange={(e) => setRole(e.target.value)}
-                className="rounded border border-slate-400 bg-white px-3 py-2">
+                className="ab-input">
                 {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
               </select>
             </div>
-            <button type="submit" className="self-start rounded bg-blue-700 px-4 py-2 font-semibold text-white hover:bg-blue-800">
+            <button type="submit" className="ab-btn self-start">
               Add member
             </button>
           </div>

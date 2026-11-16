@@ -38,7 +38,7 @@ export default function Login() {
       submitting={submitting}
       submitLabel="Log in"
       onSubmit={handleSubmit}
-      footer={<>No account yet? <Link to="/register" className="text-blue-800 underline">Register</Link></>}
+      footer={<>No account yet? <Link to="/register">Register</Link></>}
     >
       <TextField id="email" label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
       <TextField id="password" label="Password" type="password" value={password} onChange={setPassword} autoComplete="current-password" />

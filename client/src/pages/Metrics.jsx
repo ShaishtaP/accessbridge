@@ -13,10 +13,10 @@ const ms = (value) => {
 // One headline number with its label and a short line of context.
 function StatTile({ label, value, detail }) {
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-      <dt className="text-sm font-medium text-slate-700">{label}</dt>
-      <dd className="mt-1 text-3xl font-bold text-slate-900">{value}</dd>
-      {detail && <dd className="mt-1 text-sm text-slate-600">{detail}</dd>}
+    <div className="ab-panel">
+      <dt className="text-base font-bold text-ab-secondary">{label}</dt>
+      <dd className="mt-1 text-3xl font-bold">{value}</dd>
+      {detail && <dd className="mt-1 text-base text-ab-secondary">{detail}</dd>}
     </div>
   );
 }
@@ -25,17 +25,17 @@ function StatTile({ label, value, detail }) {
 function CountTable({ caption, label, counts }) {
   return (
     <table className="w-full border-collapse bg-white text-left">
-      <caption className="mb-2 text-left font-semibold">{caption}</caption>
+      <caption className="mb-2 text-left font-bold">{caption}</caption>
       <thead>
-        <tr className="border-b border-slate-300">
+        <tr className="border-b border-ab-border">
           <th scope="col" className="p-2">{label}</th>
           <th scope="col" className="p-2 text-right">Issues</th>
         </tr>
       </thead>
       <tbody>
         {Object.entries(counts).map(([key, count]) => (
-          <tr key={key} className="border-b border-slate-200">
-            <th scope="row" className="p-2 font-normal capitalize">{labelFor(key)}</th>
+          <tr key={key} className="border-b border-ab-border">
+            <th scope="row" className="p-2 font-normal">{labelFor(key)}</th>
             <td className="p-2 text-right tabular-nums">{count}</td>
           </tr>
         ))}
@@ -73,18 +73,18 @@ export default function Metrics() {
 
   return (
     <div className="py-6">
-      <nav aria-label="Breadcrumb" className="text-sm">
-        <Link to="/" className="text-blue-800 underline">Workspaces</Link> <span aria-hidden="true">/</span>{' '}
-        <Link to={`/workspaces/${id}`} className="text-blue-800 underline">{workspaceName || 'Workspace'}</Link>{' '}
+      <nav aria-label="Breadcrumb" className="text-base">
+        <Link to="/">Workspaces</Link> <span aria-hidden="true">/</span>{' '}
+        <Link to={`/workspaces/${id}`}>{workspaceName || 'Workspace'}</Link>{' '}
         <span aria-hidden="true">/</span> Metrics
       </nav>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">Metrics</h1>
-        <button type="button" onClick={load} className="rounded border border-slate-400 px-3 py-1 hover:bg-slate-100">
+        <h1 className="text-4xl font-bold">Metrics</h1>
+        <button type="button" onClick={load} className="ab-btn ab-btn-secondary ab-btn-small">
           Refresh
         </button>
       </div>
-      <p role="status" className="mt-1 text-sm text-slate-600">
+      <p role="status" className="mt-1 text-base text-ab-secondary">
         {updatedAt ? `Updated ${updatedAt.toLocaleTimeString()}` : error ? '' : 'Loading…'}
       </p>
       <Alert>{error}</Alert>
@@ -106,7 +106,7 @@ export default function Metrics() {
           </dl>
 
           <section aria-labelledby="issues-heading" className="mt-8">
-            <h2 id="issues-heading" className="text-xl font-semibold">Issues ({issues.total})</h2>
+            <h2 id="issues-heading" className="text-2xl font-bold">Issues ({issues.total})</h2>
             <div className="mt-3 grid gap-6 sm:grid-cols-2">
               <CountTable caption="Issues by status" label="Status" counts={issues.byStatus} />
               <CountTable caption="Issues by severity" label="Severity" counts={issues.bySeverity} />
@@ -114,12 +114,12 @@ export default function Metrics() {
           </section>
 
           <section aria-labelledby="timing-heading" className="mt-8">
-            <h2 id="timing-heading" className="text-xl font-semibold">Timings</h2>
+            <h2 id="timing-heading" className="text-2xl font-bold">Timings</h2>
             <div className="mt-3 overflow-x-auto">
               <table className="w-full border-collapse bg-white text-left">
                 <caption className="sr-only">Audit and API timings in milliseconds or seconds</caption>
                 <thead>
-                  <tr className="border-b border-slate-300">
+                  <tr className="border-b border-ab-border">
                     <th scope="col" className="p-2">Measure</th>
                     {TIMING_COLUMNS.map((c) => (
                       <th key={c} scope="col" className="p-2 text-right">{c === 'avg' ? 'Average' : c === 'count' ? 'Samples' : c.toUpperCase()}</th>
@@ -132,7 +132,7 @@ export default function Metrics() {
                     ['Audit total (queue + scan)', audits.totalMs],
                     ['API request', latency],
                   ].map(([name, stats]) => (
-                    <tr key={name} className="border-b border-slate-200">
+                    <tr key={name} className="border-b border-ab-border">
                       <th scope="row" className="p-2 font-normal">{name}</th>
                       {TIMING_COLUMNS.map((c) => (
                         <td key={c} className="p-2 text-right tabular-nums">{c === 'count' ? stats.count : ms(stats[c])}</td>
@@ -146,8 +146,8 @@ export default function Metrics() {
 
           {recall && (
             <section aria-labelledby="recall-heading" className="mt-8">
-              <h2 id="recall-heading" className="text-xl font-semibold">Recall details</h2>
-              <p className="mt-1 text-slate-700">
+              <h2 id="recall-heading" className="text-2xl font-bold">Recall details</h2>
+              <p className="mt-1 text-ab-secondary">
                 {recall.seededTotal} seeded defects sit on this workspace's demo pages; {recall.automatable} of them are detectable by an
                 automated rule. The rest need manual testing.
               </p>
@@ -155,11 +155,11 @@ export default function Metrics() {
                 <p className="mt-2">Every automatable seeded defect has a matching issue.</p>
               ) : (
                 <>
-                  <h3 className="mt-4 font-semibold">Not found yet ({recall.missed.length})</h3>
+                  <h3 className="mt-4 font-bold">Not found yet ({recall.missed.length})</h3>
                   <ul className="mt-2 list-disc pl-6">
                     {recall.missed.map((d) => (
                       <li key={d.id}>
-                        <span className="font-medium">{d.id}</span> on {d.page}: <code>{d.axeRule}</code>
+                        <span className="font-bold">{d.id}</span> on {d.page}: <code>{d.axeRule}</code>
                       </li>
                     ))}
                   </ul>

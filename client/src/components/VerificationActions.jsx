@@ -67,31 +67,31 @@ export default function VerificationActions({ basePath, issue, onChange }) {
 
   return (
     <section aria-labelledby="actions-heading" className="mt-8">
-      <h2 id="actions-heading" className="text-xl font-semibold">Verification</h2>
+      <h2 id="actions-heading" className="text-2xl font-bold">Verification</h2>
       <Alert>{error}</Alert>
-      <p role="status" className="mt-2 text-green-900">{message}</p>
+      <p role="status" className="mt-2 text-ab-green">{message}</p>
 
       <form onSubmit={saveStatus} className="mt-2 flex flex-wrap items-center gap-2">
-        <label htmlFor="issue-status" className="font-medium">Status</label>
+        <label htmlFor="issue-status" className="font-bold">Status</label>
         <select id="issue-status" value={MANUAL_STATUSES.includes(status) ? status : ''}
-          onChange={(e) => setStatus(e.target.value)} className="rounded border border-slate-400 px-2 py-1">
+          onChange={(e) => setStatus(e.target.value)} className="ab-input">
           {!MANUAL_STATUSES.includes(status) && <option value="" disabled>{labelFor(status)}</option>}
           {MANUAL_STATUSES.map((s) => <option key={s} value={s} className="capitalize">{labelFor(s)}</option>)}
         </select>
         <button type="submit" disabled={busy || status === issue.status || !MANUAL_STATUSES.includes(status)}
-          className="rounded bg-blue-800 px-3 py-1 text-white disabled:opacity-60">
+          className="ab-btn ab-btn-small">
           Save status
         </button>
       </form>
 
       <div className="mt-4">
         <button type="button" onClick={requestRetest} disabled={busy || !canRetest || retestRunning}
-          className="rounded bg-teal-800 px-3 py-1 text-white disabled:opacity-60">
+          className="ab-btn ab-btn-small">
           Request retest
         </button>
-        {retestRunning && <span className="ml-2 text-sm">Retest {labelFor(job.status)}…</span>}
+        {retestRunning && <span className="ml-2 text-base">Retest {labelFor(job.status)}…</span>}
         {!canRetest && (
-          <p className="mt-1 text-sm text-slate-700">
+          <p className="mt-1 text-base text-ab-secondary">
             {issue.status !== 'fixed'
               ? 'A retest is available once the issue is marked fixed.'
               : 'A retest needs an automated rule id and selector on the issue.'}

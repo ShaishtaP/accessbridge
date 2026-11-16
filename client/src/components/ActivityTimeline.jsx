@@ -24,22 +24,22 @@ export default function ActivityTimeline({ basePath, refreshKey }) {
 
   return (
     <section aria-labelledby="timeline-heading" className="mt-8">
-      <h2 id="timeline-heading" className="text-xl font-semibold">Timeline</h2>
+      <h2 id="timeline-heading" className="text-2xl font-bold">Timeline</h2>
       <Alert>{error}</Alert>
       {!events && !error && <p role="status">Loading timeline…</p>}
-      {events?.length === 0 && <p className="mt-2 text-slate-700">No activity yet.</p>}
-      <ol className="mt-2 space-y-3 border-l-2 border-slate-300 pl-4">
+      {events?.length === 0 && <p className="mt-2 text-ab-secondary">No activity yet.</p>}
+      <ol className="mt-2 space-y-3 border-l-2 border-ab-border pl-4">
         {events?.map((ev) => (
           <li key={ev.id}>
-            <p className="font-medium">{ACTION_TEXT[ev.action] || ev.action}</p>
-            <time dateTime={ev.createdAt} className="text-sm text-slate-700">
+            <p className="font-bold">{ACTION_TEXT[ev.action] || ev.action}</p>
+            <time dateTime={ev.createdAt} className="text-base text-ab-secondary">
               {new Date(ev.createdAt).toLocaleString()}
             </time>
             {ev.changes.length > 0 && (
-              <ul className="mt-1 text-sm">
+              <ul className="mt-1 text-base">
                 {ev.changes.map((c) => (
                   <li key={c.field}>
-                    <span className="font-medium">{c.field}</span>: {show(c.from)} → {show(c.to)}
+                    <span className="font-bold">{c.field}</span>: {show(c.from)} → {show(c.to)}
                   </li>
                 ))}
               </ul>
